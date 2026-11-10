@@ -1,0 +1,18 @@
+{
+  "mesic": "2027-01",
+  "kafe_a_kniha": {
+    "datum": "",
+    "cas": "14:00–16:00",
+    "misto": "Název kavárny",
+    "adresa": "Ulice 1, Frýdek-Místek",
+    "popis": "Kavárna na dvě hodiny jen pro čtenáře. Vezměte si vlastní knihu.",
+    "odkaz": "https://www.ctuvemeste.cz/program"
+  },
+  "festival": [
+    { "nadpis": "Titulek novinky", "text": "Jedna až dvě věty.", "zdroj": "", "odkaz": "https://www.ctuvemeste.cz", "zahrnout": true }
+  ],
+  "svet_knih": [
+    { "typ": "vyroci", "nadpis": "Titulek", "text": "Jedna až dvě věty vlastními slovy.", "zdroj": "Wikidata", "odkaz": "https://www.wikidata.org/", "zahrnout": true }
+  ],
+  "vzkaz": ""
+}

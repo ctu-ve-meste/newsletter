@@ -1,0 +1,38 @@
+name: Generate newsletter draft
+
+on:
+  schedule:
+    - cron: "0 6 20 * *"      # 20. v měsíci v 6:00 UTC
+  workflow_dispatch:
+    inputs:
+      mesic:
+        description: "Měsíc čísla ve tvaru RRRR-MM (prázdné = příští měsíc)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate polozky.json
+        env:
+          MESIC: ${{ github.event.inputs.mesic }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+        run: python generator/generate.py
+      - name: Commit result
+        run: |
+          git config user.name "newsletter-bot"
+          git config user.email "newsletter-bot@users.noreply.github.com"
+          git add polozky.json kandidati.json
+          git diff --cached --quiet || git commit -m "Návrh newsletteru"
+          git push

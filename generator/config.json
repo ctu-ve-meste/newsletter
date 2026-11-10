@@ -1,0 +1,8 @@
+{
+  "max_polozek": 3,
+  "min_vyroci_let": 50,
+  "krok_vyroci_let": 25,
+  "sitelinks_svet": 40,
+  "sitelinks_cesko_slovensko": 8,
+  "feeds": []
+}

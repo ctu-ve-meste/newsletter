@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  body{margin:0;background:#000;color:#fff;font:16px/1.5 Georgia,serif}
+  main{max-width:720px;margin:0 auto;padding:20px}
+  h1{font-family:Arial,sans-serif}h1 span,h3 span{color:#FFD400}
+  h3{font-family:Arial,sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#FFD400;margin:28px 0 8px}
+  .card{border:1px solid #333;padding:12px;margin:10px 0}
+  label{display:block;font:12px Arial;color:#aaa;margin-top:8px}
+  input[type=text],textarea{width:100%;box-sizing:border-box;background:#111;color:#fff;border:1px solid #444;padding:8px;font:15px Georgia,serif}
+  textarea{min-height:70px}
+  button{background:#FFD400;color:#000;border:0;padding:12px 18px;font:bold 15px Arial;margin:6px 6px 6px 0;cursor:pointer}
+  button.sec{background:#222;color:#fff;border:1px solid #555}
+  button:disabled{opacity:.4}
+  .info{font:14px Arial;color:#ccc}
+  iframe{width:100%;height:640px;border:1px solid #333;background:#000;margin-top:10px}
+  .chk{display:flex;gap:8px;align-items:center;color:#FFD400;font:14px Arial}
+</style>
+</head>
+<body>
+<main>
+  <h1>Newsletter<span>.</span></h1>
+  <div id="status" class="info">Načítám…</div>
+  <div id="form"></div>
+  <div id="buttons" style="display:none">
+    <button class="sec" onclick="preview()">Náhled</button>
+    <button class="sec" onclick="send('test')">Poslat test mně</button>
+    <button onclick="send('all')" id="sendAll">Odeslat všem odběratelům</button>
+  </div>
+  <iframe id="pv" style="display:none"></iframe>
+</main>
+
+<script>
+var KEY = <?!= JSON.stringify(key) ?>;
+var D = null;
+
+function el(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function fail(e){el('status').textContent='Chyba: '+(e&&e.message?e.message:e);}
+
+function field(path,label,val,area){
+  var tag = area ? '<textarea data-p="'+path+'">'+esc(val)+'</textarea>'
+                 : '<input type="text" data-p="'+path+'" value="'+esc(val)+'">';
+  return '<label>'+label+'</label>'+tag;
+}
+function itemCard(listName,i,it){
+  return '<div class="card"><div class="chk"><input type="checkbox" data-p="'+listName+'.'+i+'.zahrnout" '+(it.zahrnout===false?'':'checked')+'> zahrnout'
+    +(it.typ?' · '+esc(it.typ):'')+'</div>'
+    +field(listName+'.'+i+'.nadpis','Nadpis',it.nadpis)
+    +field(listName+'.'+i+'.text','Text',it.text,true)
+    +field(listName+'.'+i+'.zdroj','Zdroj (název)',it.zdroj)
+    +field(listName+'.'+i+'.odkaz','Odkaz (ověř, že funguje!)',it.odkaz)+'</div>';
+}
+function render(){
+  var k = D.kafe_a_kniha || {};
+  var h = '<h3>Číslo</h3>'+field('mesic','Měsíc (RRRR-MM)',D.mesic);
+  h += '<h3>Kafe&amp;kniha</h3><div class="card">'
+    +field('kafe_a_kniha.datum','Datum (prázdné = první neděle v měsíci)',k.datum)
+    +field('kafe_a_kniha.cas','Čas',k.cas)
+    +field('kafe_a_kniha.misto','Kavárna',k.misto)
+    +field('kafe_a_kniha.adresa','Adresa',k.adresa)
+    +field('kafe_a_kniha.popis','Popis',k.popis,true)
+    +field('kafe_a_kniha.odkaz','Odkaz',k.odkaz)+'</div>';
+  h += '<h3>Z festivalu</h3>'+(D.festival||[]).map(function(it,i){return itemCard('festival',i,it);}).join('');
+  h += '<h3>Ze světa knih</h3>'+(D.svet_knih||[]).map(function(it,i){return itemCard('svet_knih',i,it);}).join('');
+  h += '<h3>Vzkaz od týmu (nepovinné)</h3>'+field('vzkaz','Vzkaz',D.vzkaz,true);
+  el('form').innerHTML = h;
+  el('buttons').style.display = 'block';
+}
+function collect(){
+  var out = JSON.parse(JSON.stringify(D));
+  document.querySelectorAll('[data-p]').forEach(function(n){
+    var parts = n.getAttribute('data-p').split('.');
+    var o = out;
+    for (var i=0;i<parts.length-1;i++){ if(o[parts[i]]==null) o[parts[i]]={}; o=o[parts[i]]; }
+    o[parts[parts.length-1]] = n.type==='checkbox' ? n.checked : n.value;
+  });
+  return out;
+}
+function showStats(s){
+  el('status').innerHTML = 'Odebírá: <b>'+s.odebira+'</b> · čeká na odeslání tohoto čísla: <b>'+s.zbyva+'</b> · zbývající denní limit e-mailů: <b>'+s.quota+'</b>';
+}
+function preview(){
+  google.script.run.withSuccessHandler(function(html){
+    var f = el('pv'); f.style.display='block'; f.srcdoc = html;
+    f.scrollIntoView({behavior:'smooth'});
+  }).withFailureHandler(fail).adminPreview(KEY, collect());
+}
+function send(mode){
+  var d = collect();
+  if (mode==='all' && !confirm('Opravdu odeslat všem odběratelům? Zkontroloval jsi náhled, odkazy a test?')) return;
+  var btns = document.querySelectorAll('button'); btns.forEach(function(b){b.disabled=true;});
+  el('status').textContent = 'Odesílám…';
+  google.script.run.withSuccessHandler(function(r){
+    btns.forEach(function(b){b.disabled=false;});
+    el('status').innerHTML = (r.test?'Test odeslán.':'Odesláno: <b>'+r.poslano+'</b>.')+' Zbývá poslat: <b>'+r.zbyva+'</b>'
+      +(!r.test && r.zbyva>0 ? ' – klikni znovu na „Odeslat všem“, navážeme tam, kde jsme skončili.' : '.');
+  }).withFailureHandler(function(e){btns.forEach(function(b){b.disabled=false;});fail(e);}).adminSend(KEY, d, mode);
+}
+
+google.script.run.withSuccessHandler(function(r){
+  D = r.data; showStats(r.stats); render();
+}).withFailureHandler(fail).adminLoad(KEY);
+</script>
+</body>
+</html>
