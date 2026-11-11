@@ -13,7 +13,7 @@
     {
       "typ": "ocenění",
       "nadpis": "Anne Carson",
-      "text": "Nobelova cena za literaturu 2026: Anne Carson.",
+      "text": "Anne Carson: Nobelova cena za literaturu 2026.",
       "zdroj": "nobelprize.org",
       "odkaz": "https://www.nobelprize.org/prizes/literature/2026/summary/",
       "zahrnout": true
@@ -21,18 +21,28 @@
     {
       "typ": "vyroci",
       "nadpis": "Walt Disney",
-      "text": "125 let od narození: Walt Disney (americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company (1901—1966)), 5. prosince.",
+      "text": "Walt Disney, americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company: 125 let od narození (5. prosince).",
       "zdroj": "Wikidata / Wikipedie",
       "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney",
-      "zahrnout": true
+      "zahrnout": true,
+      "wiki_text": "Walter Elias „Walt“ Disney byl americký filmový producent, režisér, scenárista, dabér, animátor, podnikatel a filantrop. Ve své době silně ovlivnil zábavní průmysl. Jako zakladatel firmy Walt Disney Productions se stal jedním z nejznámějších filmových producentů na světě.",
+      "wiki_odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney",
+      "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Walt_Disney_1946.JPG/330px-Walt_Disney_1946.JPG?utm_source=cs.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "foto_popisek": "Foto: Boy Scouts of America, Public domain (Wikimedia Commons)",
+      "foto_odkaz": "https://commons.wikimedia.org/wiki/File:Walt_Disney_1946.JPG"
     },
     {
       "typ": "vyroci",
       "nadpis": "Rainer Maria Rilke",
-      "text": "100 let od úmrtí: Rainer Maria Rilke (rakouský básník a spisovatel (1875–1926)), 29. prosince.",
+      "text": "Rainer Maria Rilke, rakouský básník a spisovatel: 100 let od úmrtí (29. prosince).",
       "zdroj": "Wikidata / Wikipedie",
       "odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke",
-      "zahrnout": true
+      "zahrnout": true,
+      "wiki_text": "Rainer Maria Rilke celým jménem René Karl Wilhelm Johann Josef Maria Rilke byl jedním z nejvýznamnějších německy píšících lyriků přelomu 19. a 20. století. Napsal také jeden román a několik povídek. Max Brod jej řadil do širšího kontextu tzv. Pražského kruhu; ovlivnil zejména zdejší autory (půl)generace Jung-Prag.",
+      "wiki_odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke",
+      "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Rainer_Maria_Rilke_1900.jpg/330px-Rainer_Maria_Rilke_1900.jpg?utm_source=cs.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "foto_popisek": "Foto: Unknown authorUnknown author, Public domain (Wikimedia Commons)",
+      "foto_odkaz": "https://commons.wikimedia.org/wiki/File:Rainer_Maria_Rilke_1900.jpg"
     }
   ],
   "vzkaz": ""

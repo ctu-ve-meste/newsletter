@@ -1,16 +1,5 @@
 [
   {
-    "id": "Q216582-narození",
-    "typ": "vyroci",
-    "jmeno": "Filippo Tommaso Marinetti",
-    "popis": "italský básník a dramatik",
-    "udalost": "150 let od narození",
-    "datum": "22. prosince",
-    "score": 67,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Filippo_Tommaso_Marinetti"
-  },
-  {
     "id": "Q76483-úmrtí",
     "typ": "vyroci",
     "jmeno": "Rainer Maria Rilke",
@@ -20,6 +9,17 @@
     "score": 165,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke"
+  },
+  {
+    "id": "Q216582-narození",
+    "typ": "vyroci",
+    "jmeno": "Filippo Tommaso Marinetti",
+    "popis": "italský básník a dramatik",
+    "udalost": "150 let od narození",
+    "datum": "22. prosince",
+    "score": 67,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Filippo_Tommaso_Marinetti"
   },
   {
     "id": "Q84455-narození",
@@ -44,39 +44,6 @@
     "odkaz": "https://cs.wikipedia.org/wiki/Margaret_Meadov%C3%A1"
   },
   {
-    "id": "Q352730-narození",
-    "typ": "vyroci",
-    "jmeno": "Treat Williams",
-    "popis": "americký herec",
-    "udalost": "75 let od narození",
-    "datum": "1. prosince",
-    "score": 45,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Treat_Williams"
-  },
-  {
-    "id": "Q310155-narození",
-    "typ": "vyroci",
-    "jmeno": "Bill Bryson",
-    "popis": "americký spisovatel",
-    "udalost": "75 let od narození",
-    "datum": "8. prosince",
-    "score": 46,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Bill_Bryson"
-  },
-  {
-    "id": "Q310192-narození",
-    "typ": "vyroci",
-    "jmeno": "George B. McClellan",
-    "popis": "americký generál a politik",
-    "udalost": "200 let od narození",
-    "datum": "3. prosince",
-    "score": 46,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/George_B._McClellan"
-  },
-  {
     "id": "Q8704-narození",
     "typ": "vyroci",
     "jmeno": "Walt Disney",
@@ -86,6 +53,17 @@
     "score": 218,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney"
+  },
+  {
+    "id": "Q352730-narození",
+    "typ": "vyroci",
+    "jmeno": "Treat Williams",
+    "popis": "americký herec",
+    "udalost": "75 let od narození",
+    "datum": "1. prosince",
+    "score": 45,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Treat_Williams"
   },
   {
     "id": "Q134682-úmrtí",
@@ -108,6 +86,28 @@
     "score": 65,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Fateh_Al%C3%AD_Tip%C3%BA"
+  },
+  {
+    "id": "Q310155-narození",
+    "typ": "vyroci",
+    "jmeno": "Bill Bryson",
+    "popis": "americký spisovatel",
+    "udalost": "75 let od narození",
+    "datum": "8. prosince",
+    "score": 46,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Bill_Bryson"
+  },
+  {
+    "id": "Q310192-narození",
+    "typ": "vyroci",
+    "jmeno": "George B. McClellan",
+    "popis": "americký generál a politik",
+    "udalost": "200 let od narození",
+    "datum": "3. prosince",
+    "score": 46,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/George_B._McClellan"
   },
   {
     "id": "Q489000-narození",
@@ -165,6 +165,28 @@
     "odkaz": "https://cs.wikipedia.org/wiki/Alexandr_Fad%C4%9Bjev"
   },
   {
+    "id": "Q258715-narození",
+    "typ": "vyroci",
+    "jmeno": "Arnošt Lustig",
+    "popis": "český novinář, politický spisovatel, romanopisec a spisovatel (1926-2011)",
+    "udalost": "100 let od narození",
+    "datum": "21. prosince",
+    "score": 59,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Arno%C5%A1t_Lustig"
+  },
+  {
+    "id": "Q323738-úmrtí",
+    "typ": "vyroci",
+    "jmeno": "Přemysl Pitter",
+    "popis": "český pacifista a pedagog",
+    "udalost": "50 let od úmrtí",
+    "datum": "15. prosince",
+    "score": 39,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/P%C5%99emysl_Pitter"
+  },
+  {
     "id": "Q526473-narození",
     "typ": "vyroci",
     "jmeno": "Miloš Macourek",
@@ -174,28 +196,6 @@
     "score": 46,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Milo%C5%A1_Macourek"
-  },
-  {
-    "id": "Q1356330-narození",
-    "typ": "vyroci",
-    "jmeno": "Michal Hvorecký",
-    "popis": "slovenský spisovatel, publicista a aktivista",
-    "udalost": "50 let od narození",
-    "datum": "29. prosince",
-    "score": 46,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Michal_Hvoreck%C3%BD"
-  },
-  {
-    "id": "Q1373840-narození",
-    "typ": "vyroci",
-    "jmeno": "Pavel Bělobrádek",
-    "popis": "český politik",
-    "udalost": "50 let od narození",
-    "datum": "25. prosince",
-    "score": 38,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Pavel_B%C4%9Blobr%C3%A1dek"
   },
   {
     "id": "Q1988946-narození",
@@ -220,26 +220,26 @@
     "odkaz": "https://cs.wikipedia.org/wiki/Jan_K%C5%99esadlo"
   },
   {
-    "id": "Q258715-narození",
+    "id": "Q1356330-narození",
     "typ": "vyroci",
-    "jmeno": "Arnošt Lustig",
-    "popis": "český novinář, politický spisovatel, romanopisec a spisovatel (1926-2011)",
-    "udalost": "100 let od narození",
-    "datum": "21. prosince",
-    "score": 59,
+    "jmeno": "Michal Hvorecký",
+    "popis": "slovenský spisovatel, publicista a aktivista",
+    "udalost": "50 let od narození",
+    "datum": "29. prosince",
+    "score": 46,
     "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Arno%C5%A1t_Lustig"
+    "odkaz": "https://cs.wikipedia.org/wiki/Michal_Hvoreck%C3%BD"
   },
   {
-    "id": "Q323738-úmrtí",
+    "id": "Q1373840-narození",
     "typ": "vyroci",
-    "jmeno": "Přemysl Pitter",
-    "popis": "český pacifista a pedagog",
-    "udalost": "50 let od úmrtí",
-    "datum": "15. prosince",
-    "score": 39,
+    "jmeno": "Pavel Bělobrádek",
+    "popis": "český politik",
+    "udalost": "50 let od narození",
+    "datum": "25. prosince",
+    "score": 38,
     "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/P%C5%99emysl_Pitter"
+    "odkaz": "https://cs.wikipedia.org/wiki/Pavel_B%C4%9Blobr%C3%A1dek"
   },
   {
     "id": "Q20164564-narození",
@@ -251,17 +251,6 @@
     "score": 39,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Svetlana_%C5%BDuchov%C3%A1"
-  },
-  {
-    "id": "Q380265-umrti-nedavno",
-    "typ": "umrti",
-    "jmeno": "Rjú Murakami",
-    "popis": "japonský spisovatel, scenárista a režisér",
-    "udalost": "nedávno zemřel/a",
-    "datum": "17. října",
-    "score": 45,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Rj%C3%BA_Murakami"
   },
   {
     "id": "Q3394963-umrti-nedavno",
