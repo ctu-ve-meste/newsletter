@@ -1,0 +1,39 @@
+{
+  "mesic": "2026-12",
+  "kafe_a_kniha": {
+    "cas": "",
+    "misto": "",
+    "adresa": "",
+    "odkaz": "",
+    "popis": "",
+    "datum": ""
+  },
+  "festival": [],
+  "svet_knih": [
+    {
+      "typ": "ocenění",
+      "nadpis": "Anne Carson",
+      "text": "Nobelova cena za literaturu 2026: Anne Carson.",
+      "zdroj": "nobelprize.org",
+      "odkaz": "https://www.nobelprize.org/prizes/literature/2026/summary/",
+      "zahrnout": true
+    },
+    {
+      "typ": "vyroci",
+      "nadpis": "Walt Disney",
+      "text": "125 let od narození: Walt Disney (americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company (1901—1966)), 5. prosince.",
+      "zdroj": "Wikidata / Wikipedie",
+      "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney",
+      "zahrnout": true
+    },
+    {
+      "typ": "vyroci",
+      "nadpis": "Rainer Maria Rilke",
+      "text": "100 let od úmrtí: Rainer Maria Rilke (rakouský básník a spisovatel (1875–1926)), 29. prosince.",
+      "zdroj": "Wikidata / Wikipedie",
+      "odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke",
+      "zahrnout": true
+    }
+  ],
+  "vzkaz": ""
+}
