@@ -1,16 +1,5 @@
 [
   {
-    "id": "Q76483-úmrtí",
-    "typ": "vyroci",
-    "jmeno": "Rainer Maria Rilke",
-    "popis": "rakouský básník a spisovatel (1875–1926)",
-    "udalost": "100 let od úmrtí",
-    "datum": "29. prosince",
-    "score": 165,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke"
-  },
-  {
     "id": "Q216582-narození",
     "typ": "vyroci",
     "jmeno": "Filippo Tommaso Marinetti",
@@ -20,6 +9,17 @@
     "score": 67,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Filippo_Tommaso_Marinetti"
+  },
+  {
+    "id": "Q76483-úmrtí",
+    "typ": "vyroci",
+    "jmeno": "Rainer Maria Rilke",
+    "popis": "rakouský básník a spisovatel (1875–1926)",
+    "udalost": "100 let od úmrtí",
+    "datum": "29. prosince",
+    "score": 165,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke"
   },
   {
     "id": "Q84455-narození",
@@ -44,17 +44,6 @@
     "odkaz": "https://cs.wikipedia.org/wiki/Margaret_Meadov%C3%A1"
   },
   {
-    "id": "Q8704-narození",
-    "typ": "vyroci",
-    "jmeno": "Walt Disney",
-    "popis": "americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company (1901—1966)",
-    "udalost": "125 let od narození",
-    "datum": "5. prosince",
-    "score": 218,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney"
-  },
-  {
     "id": "Q352730-narození",
     "typ": "vyroci",
     "jmeno": "Treat Williams",
@@ -64,17 +53,6 @@
     "score": 45,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Treat_Williams"
-  },
-  {
-    "id": "Q10088-narození",
-    "typ": "vyroci",
-    "jmeno": "Fateh Alí Tipú",
-    "popis": "sultán Maisúrského království",
-    "udalost": "275 let od narození",
-    "datum": "1. prosince",
-    "score": 65,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Fateh_Al%C3%AD_Tip%C3%BA"
   },
   {
     "id": "Q310155-narození",
@@ -99,6 +77,17 @@
     "odkaz": "https://cs.wikipedia.org/wiki/George_B._McClellan"
   },
   {
+    "id": "Q8704-narození",
+    "typ": "vyroci",
+    "jmeno": "Walt Disney",
+    "popis": "americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company (1901—1966)",
+    "udalost": "125 let od narození",
+    "datum": "5. prosince",
+    "score": 218,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney"
+  },
+  {
     "id": "Q134682-úmrtí",
     "typ": "vyroci",
     "jmeno": "Anastasius I.",
@@ -108,6 +97,17 @@
     "score": 76,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Anastasius_I."
+  },
+  {
+    "id": "Q10088-narození",
+    "typ": "vyroci",
+    "jmeno": "Fateh Alí Tipú",
+    "popis": "sultán Maisúrského království",
+    "udalost": "275 let od narození",
+    "datum": "1. prosince",
+    "score": 65,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Fateh_Al%C3%AD_Tip%C3%BA"
   },
   {
     "id": "Q489000-narození",
@@ -176,6 +176,50 @@
     "odkaz": "https://cs.wikipedia.org/wiki/Milo%C5%A1_Macourek"
   },
   {
+    "id": "Q1356330-narození",
+    "typ": "vyroci",
+    "jmeno": "Michal Hvorecký",
+    "popis": "slovenský spisovatel, publicista a aktivista",
+    "udalost": "50 let od narození",
+    "datum": "29. prosince",
+    "score": 46,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Michal_Hvoreck%C3%BD"
+  },
+  {
+    "id": "Q1373840-narození",
+    "typ": "vyroci",
+    "jmeno": "Pavel Bělobrádek",
+    "popis": "český politik",
+    "udalost": "50 let od narození",
+    "datum": "25. prosince",
+    "score": 38,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Pavel_B%C4%9Blobr%C3%A1dek"
+  },
+  {
+    "id": "Q1988946-narození",
+    "typ": "vyroci",
+    "jmeno": "Jaroslav Marvan",
+    "popis": "český herec",
+    "udalost": "125 let od narození",
+    "datum": "11. prosince",
+    "score": 41,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Jaroslav_Marvan"
+  },
+  {
+    "id": "Q957342-narození",
+    "typ": "vyroci",
+    "jmeno": "Jan Křesadlo",
+    "popis": "český básník, hudební skladatel, malíř, matematik, překladatel, romanopisec a spisovatel",
+    "udalost": "100 let od narození",
+    "datum": "9. prosince",
+    "score": 45,
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Jan_K%C5%99esadlo"
+  },
+  {
     "id": "Q258715-narození",
     "typ": "vyroci",
     "jmeno": "Arnošt Lustig",
@@ -198,17 +242,6 @@
     "odkaz": "https://cs.wikipedia.org/wiki/P%C5%99emysl_Pitter"
   },
   {
-    "id": "Q1988946-narození",
-    "typ": "vyroci",
-    "jmeno": "Jaroslav Marvan",
-    "popis": "český herec",
-    "udalost": "125 let od narození",
-    "datum": "11. prosince",
-    "score": 41,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Jaroslav_Marvan"
-  },
-  {
     "id": "Q20164564-narození",
     "typ": "vyroci",
     "jmeno": "Svetlana Žuchová",
@@ -218,39 +251,6 @@
     "score": 39,
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Svetlana_%C5%BDuchov%C3%A1"
-  },
-  {
-    "id": "Q957342-narození",
-    "typ": "vyroci",
-    "jmeno": "Jan Křesadlo",
-    "popis": "český básník, hudební skladatel, malíř, matematik, překladatel, romanopisec a spisovatel",
-    "udalost": "100 let od narození",
-    "datum": "9. prosince",
-    "score": 45,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Jan_K%C5%99esadlo"
-  },
-  {
-    "id": "Q1356330-narození",
-    "typ": "vyroci",
-    "jmeno": "Michal Hvorecký",
-    "popis": "slovenský spisovatel, publicista a aktivista",
-    "udalost": "50 let od narození",
-    "datum": "29. prosince",
-    "score": 46,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Michal_Hvoreck%C3%BD"
-  },
-  {
-    "id": "Q1373840-narození",
-    "typ": "vyroci",
-    "jmeno": "Pavel Bělobrádek",
-    "popis": "český politik",
-    "udalost": "50 let od narození",
-    "datum": "25. prosince",
-    "score": 38,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Pavel_B%C4%9Blobr%C3%A1dek"
   },
   {
     "id": "Q380265-umrti-nedavno",
