@@ -53,6 +53,21 @@ def target_month():
     return (t.year + 1, 1) if t.month == 12 else (t.year, t.month + 1)
 
 
+def fmt_date(d, prec):
+    if not d:
+        return ""
+    return f"{d.day}. {MESICE[d.month - 1]} {d.year}" if prec >= 11 else str(d.year)
+
+
+def life_dates(birth, bp, death, dp):
+    b, d = fmt_date(birth, bp), fmt_date(death, dp)
+    if b and d:
+        return f"{b} – {d}"
+    if b:
+        return f"nar. {b}"
+    return f"úmrtí {d}" if d else ""
+
+
 def cz_date(d):
     return f"{d.day}. {MESICE[d.month - 1]}"
 
@@ -69,7 +84,7 @@ def parse_date(s):
 OCC = "wd:Q36180 wd:Q49757 wd:Q6625963 wd:Q214917 wd:Q4853732"  # spisovatel, básník, romanopisec, dramatik, autor dětských knih
 
 SELECT = """
-SELECT ?p ?pLabel ?pDescription ?birth ?death ?sl ?cs ?en WHERE {{
+SELECT ?p ?pLabel ?pDescription ?birth ?bp ?death ?dp ?sl ?cs ?en WHERE {{
   VALUES ?occ {{ {occ} }}
   ?p wdt:P106 ?occ .
   {extra}
@@ -93,13 +108,16 @@ def sparql(q):
 def row_to_person(r, cz):
     g = lambda k: r.get(k, {}).get("value")
     qid = g("p").rsplit("/", 1)[-1]
+    birth = parse_date(g("birth")) if g("birth") else None
+    death = parse_date(g("death")) if g("death") else None
+    bp, dp = int(float(g("bp") or 0)), int(float(g("dp") or 0))
     return {
         "qid": qid,
         "jmeno": g("pLabel"),
         "popis": g("pDescription") or "",
-        "birth": parse_date(g("birth")) if g("birth") else None,
-        "death": parse_date(g("death")) if g("death") else None,
-        "sl": int(g("sl")),
+        "birth": birth, "death": death,
+        "zd": life_dates(birth, bp, death, dp),
+        "sl": int(g("sl") or 0),
         "cz": cz,
         "odkaz": g("cs") or g("en") or f"https://www.wikidata.org/wiki/{qid}",
     }
@@ -133,6 +151,7 @@ def wikidata_anniversaries(year, month, cfg):
                     "udalost": f"{diff} let od {'narození' if kind == 'narození' else 'úmrtí'}",
                     "datum": cz_date(d),
                     "score": p["sl"] + (30 if p["cz"] else 0),
+                    "zivotni_data": p["zd"],
                     "zdroj": "Wikidata / Wikipedie", "odkaz": p["odkaz"],
                 })
     return out
@@ -159,11 +178,50 @@ def wikidata_recent_deaths(cfg):
         "jmeno": p["jmeno"], "popis": p["popis"],
         "udalost": "nedávno zemřel/a", "datum": cz_date(p["death"]) if p["death"] else "",
         "score": p["sl"] + (30 if p["cz"] else 0),
+        "zivotni_data": p["zd"],
         "zdroj": "Wikidata / Wikipedie", "odkaz": p["odkaz"],
     } for p in people.values() if p["death"]]
 
 
 # ---------- Nobelova cena ----------
+
+NOBEL_Q = """
+SELECT ?p ?pDescription ?birth ?bp ?death ?dp ?cs ?en WHERE {{
+  ?p wdt:P166 wd:Q37922 ; rdfs:label "{name}"@en .
+  OPTIONAL {{ ?p p:P569/psv:P569 [ wikibase:timeValue ?birth ; wikibase:timePrecision ?bp ] }}
+  OPTIONAL {{ ?p p:P570/psv:P570 [ wikibase:timeValue ?death ; wikibase:timePrecision ?dp ] }}
+  OPTIONAL {{ ?cs schema:about ?p ; schema:isPartOf <https://cs.wikipedia.org/> }}
+  OPTIONAL {{ ?en schema:about ?p ; schema:isPartOf <https://en.wikipedia.org/> }}
+  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "cs,en". }}
+}} LIMIT 1
+"""
+
+
+def find_person_by_name(name):
+    """Dohledá nositele Nobelovy ceny za literaturu: Wikidata, pak přímo Wikipedie."""
+    try:
+        rows = sparql(NOBEL_Q.format(name=name.replace("\\", "\\\\").replace('"', '\\"')))
+        if rows:
+            r = dict(rows[0])
+            r["p"] = r.get("p", {"value": "x/Q0"})
+            g = lambda k: r.get(k, {}).get("value")
+            birth = parse_date(g("birth")) if g("birth") else None
+            death = parse_date(g("death")) if g("death") else None
+            return {"popis": g("pDescription") or "",
+                    "zd": life_dates(birth, int(float(g("bp") or 0)), death, int(float(g("dp") or 0))),
+                    "wiki": g("cs") or g("en") or ""}
+    except Exception as e:
+        warn(f"Wikidata (nositel Nobelovy ceny {name}) selhalo: {e}")
+    for lang in ("cs", "en"):                       # záloha: stránka na Wikipedii podle jména
+        try:
+            title = urllib.parse.quote(name.replace(" ", "_"))
+            sm = json.loads(http(f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{title}"))
+            if re.search(r"spisovat|básn|poet|writer|novelist|dramat", sm.get("extract", ""), re.I):
+                return {"popis": "", "zd": "", "wiki": f"https://{lang}.wikipedia.org/wiki/{title}"}
+        except Exception:
+            continue
+    return None
+
 
 def nobel(year, month):
     if month not in (10, 12):
@@ -176,15 +234,18 @@ def nobel(year, month):
             for l in pr.get("laureates", []):
                 kn = l.get("knownName") or l.get("fullName") or {}
                 names.append(kn.get("en") or kn.get("se") or "")
-        names = [n for n in names if n]
-        if not names:
-            return []
-        return [{
-            "id": f"nobel-{year}", "typ": "ocenění",
-            "jmeno": ", ".join(names), "popis": "", "udalost": f"Nobelova cena za literaturu {year}",
-            "datum": "", "score": 1000,
-            "zdroj": "nobelprize.org", "odkaz": f"https://www.nobelprize.org/prizes/literature/{year}/summary/",
-        }]
+        out = []
+        for i, name in enumerate([n for n in names if n]):
+            info = find_person_by_name(name) or {"popis": "", "zd": "", "wiki": ""}
+            if not info["wiki"]:
+                warn(f"Nobelova cena: k laureátovi {name} se nepodařilo najít stránku na Wikipedii.")
+            out.append({
+                "id": f"nobel-{year}-{i}", "typ": "ocenění",
+                "jmeno": name, "popis": info["popis"], "udalost": f"Nobelova cena za literaturu {year}",
+                "datum": "", "score": 1000, "zivotni_data": info["zd"], "wiki_url": info["wiki"],
+                "zdroj": "nobelprize.org", "odkaz": f"https://www.nobelprize.org/prizes/literature/{year}/summary/",
+            })
+        return out
     except Exception as e:
         warn(f"Nobelova cena: nic nenalezeno nebo chyba ({e}).")
         return []
@@ -275,7 +336,8 @@ def commons_photo(thumb_url):
 
 
 def wiki_enrich(item):
-    m = re.match(r"https://(cs|en)\.wikipedia\.org/wiki/(.+)$", item.get("odkaz", ""))
+    url = item.get("wiki_url") or item.get("odkaz", "")
+    m = re.match(r"https://(cs|en)\.wikipedia\.org/wiki/(.+)$", url)
     if not m:
         return
     lang, title = m.groups()
@@ -286,7 +348,7 @@ def wiki_enrich(item):
         return
     if lang == "cs" and sm.get("extract"):
         item["wiki_text"] = trim_extract(sm["extract"])
-        item["wiki_odkaz"] = item["odkaz"]
+        item["wiki_odkaz"] = url
     try:
         ph = commons_photo((sm.get("thumbnail") or {}).get("source"))
         if ph:
@@ -309,6 +371,7 @@ def pick_plain(cands, n):
     for c in sorted(cands, key=lambda c: -c["score"]):
         if c["typ"] in ("vyroci", "ocenění") and len([o for o in out if o["zahrnout"]]) < n:
             out.append({"typ": c["typ"], "nadpis": c["jmeno"], "text": plain_text(c),
+                        "zivotni_data": c.get("zivotni_data", ""), "wiki_url": c.get("wiki_url", ""),
                         "zdroj": c["zdroj"], "odkaz": c["odkaz"], "zahrnout": True})
     return out
 
@@ -362,6 +425,7 @@ def pick_ai(cands, n):
         if not c or not s.get("nadpis") or not s.get("text"):
             continue
         out.append({"typ": c["typ"], "nadpis": s["nadpis"].strip(), "text": s["text"].strip(),
+                    "zivotni_data": c.get("zivotni_data", ""), "wiki_url": c.get("wiki_url", ""),
                     "zdroj": c["zdroj"], "odkaz": c["odkaz"],            # zdroj a odkaz vždy z kandidáta
                     "zahrnout": c["typ"] != "umrti"})                     # úmrtí vždy ručně odškrtnout
     return out or None
