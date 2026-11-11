@@ -328,9 +328,7 @@ def main():
     svet += chosen
 
     kafe = load("data/kafe.json", {}).get(ym)
-    if not kafe or not kafe.get("misto"):
-        warn(f"V generator/data/kafe.json chybí kavárna pro {ym}. Doplň ji (nebo ji vyplň ve schvalovací stránce).")
-        kafe = kafe or {"cas": "", "misto": "", "adresa": "", "odkaz": "", "popis": ""}
+    kafe = kafe or {"cas": "", "misto": "", "adresa": "", "odkaz": "", "popis": ""}  # kavárnu se vyplňuje na schvalovací stránce
     kafe = dict(kafe, datum="")  # prázdné datum = první neděle v měsíci, spočítá Apps Script
 
     out = {"mesic": ym, "kafe_a_kniha": kafe, "festival": festival_items(ym), "svet_knih": svet, "vzkaz": ""}
