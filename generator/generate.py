@@ -8,6 +8,7 @@ nikdy z modelu. Bez API klíče běží deterministický výběr.
 Pouze standardní knihovna Pythonu.
 """
 import datetime as dt
+import html as htmllib
 import json
 import os
 import re
@@ -235,15 +236,72 @@ def festival_items(ym):
             for i in load("data/festival.json", []) if ym in i.get("mesice", [])]
 
 
+# ---------- Wikipedie: krátký výtah a fotka (jen volné licence) ----------
+
+FREE_LIC = re.compile(r"^(CC0|Public domain|PD\b|CC BY(-SA)? \d)", re.I)
+
+
+def trim_extract(t, limit=350):
+    t = re.sub(r"\s*\([^()]*\d{4}[^()]*\)", "", t, count=1)      # závorka s daty narození a úmrtí
+    t = re.sub(r"\s+", " ", t).strip()
+    if len(t) <= limit:
+        return t
+    cut = -1
+    for m in re.finditer(r"[^\d\s]\. ", t[:limit]):                 # konec věty, ne "4. prosince"
+        cut = m.end() - 1
+    if cut > 120:
+        return t[:cut].strip()
+    return t[:limit].rsplit(" ", 1)[0] + "…"
+
+
+def commons_photo(thumb_url):
+    m = re.search(r"/wikipedia/commons/(?:thumb/)?[0-9a-f]/[0-9a-f]{2}/([^/]+)", thumb_url or "")
+    if not m:
+        return None
+    fname = urllib.parse.unquote(m.group(1))
+    api = ("https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=extmetadata&titles=File:"
+           + urllib.parse.quote(fname))
+    data = json.loads(http(api))
+    page = next(iter(data["query"]["pages"].values()))
+    em = page["imageinfo"][0]["extmetadata"]
+    lic = em.get("LicenseShortName", {}).get("value", "")
+    if not FREE_LIC.match(lic) or re.search(r"NC|ND", lic):
+        return None
+    artist = htmllib.unescape(re.sub(r"<[^>]+>", "", em.get("Artist", {}).get("value", ""))).strip()
+    artist = (artist[:80] + "…") if len(artist) > 80 else artist
+    return {"foto": thumb_url,
+            "foto_popisek": f"Foto: {artist or 'autor neuveden'}, {lic} (Wikimedia Commons)",
+            "foto_odkaz": "https://commons.wikimedia.org/wiki/File:" + urllib.parse.quote(fname)}
+
+
+def wiki_enrich(item):
+    m = re.match(r"https://(cs|en)\.wikipedia\.org/wiki/(.+)$", item.get("odkaz", ""))
+    if not m:
+        return
+    lang, title = m.groups()
+    try:
+        sm = json.loads(http(f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{title}"))
+    except Exception as e:
+        warn(f"Wikipedie (výtah) selhala pro {item['nadpis']}: {e}")
+        return
+    if lang == "cs" and sm.get("extract"):
+        item["wiki_text"] = trim_extract(sm["extract"])
+        item["wiki_odkaz"] = item["odkaz"]
+    try:
+        ph = commons_photo((sm.get("thumbnail") or {}).get("source"))
+        if ph:
+            item.update(ph)
+    except Exception as e:
+        warn(f"Wikimedia Commons (licence fotky) selhala pro {item['nadpis']}: {e}")
+
+
 # ---------- výběr: bez AI ----------
 
 def plain_text(c):
-    s = f"{c['udalost']}: {c['jmeno']}"
-    if c["popis"]:
-        s += f" ({c['popis']})"
-    if c["datum"]:
-        s += f", {c['datum']}"
-    return s + "."
+    popis = re.sub(r"\s*\([^)]*\)\s*$", "", c["popis"] or "").strip()   # bez závorky s roky
+    head = f"{c['jmeno']}, {popis}" if popis else c["jmeno"]
+    tail = c["udalost"] + (f" ({c['datum']})" if c["datum"] else "")
+    return f"{head}: {tail}."
 
 
 def pick_plain(cands, n):
@@ -325,6 +383,8 @@ def main():
     if chosen is None:
         chosen = pick_plain(cands, cfg.get("max_polozek", 3))
         # úmrtí v režimu bez AI nezařazujeme automaticky
+    for it in chosen:
+        wiki_enrich(it)
     svet += chosen
 
     kafe = load("data/kafe.json", {}).get(ym)
