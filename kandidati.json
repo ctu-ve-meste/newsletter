@@ -1,16 +1,5 @@
 [
   {
-    "id": "Q76483-úmrtí",
-    "typ": "vyroci",
-    "jmeno": "Rainer Maria Rilke",
-    "popis": "rakouský básník a spisovatel (1875–1926)",
-    "udalost": "100 let od úmrtí",
-    "datum": "29. prosince",
-    "score": 165,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke"
-  },
-  {
     "id": "Q216582-narození",
     "typ": "vyroci",
     "jmeno": "Filippo Tommaso Marinetti",
@@ -18,19 +7,21 @@
     "udalost": "150 let od narození",
     "datum": "22. prosince",
     "score": 67,
+    "zivotni_data": "22. prosince 1876 – 2. prosince 1944",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Filippo_Tommaso_Marinetti"
   },
   {
-    "id": "Q84455-narození",
+    "id": "Q76483-úmrtí",
     "typ": "vyroci",
-    "jmeno": "Ödön von Horváth",
-    "popis": "rakouský dramatik a spisovatel",
-    "udalost": "125 let od narození",
-    "datum": "9. prosince",
-    "score": 48,
+    "jmeno": "Rainer Maria Rilke",
+    "popis": "rakouský básník a spisovatel (1875–1926)",
+    "udalost": "100 let od úmrtí",
+    "datum": "29. prosince",
+    "score": 165,
+    "zivotni_data": "4. prosince 1875 – 29. prosince 1926",
     "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/%C3%96d%C3%B6n_von_Horv%C3%A1th"
+    "odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke"
   },
   {
     "id": "Q180099-narození",
@@ -40,19 +31,9 @@
     "udalost": "125 let od narození",
     "datum": "16. prosince",
     "score": 97,
+    "zivotni_data": "16. prosince 1901 – 15. listopadu 1978",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Margaret_Meadov%C3%A1"
-  },
-  {
-    "id": "Q8704-narození",
-    "typ": "vyroci",
-    "jmeno": "Walt Disney",
-    "popis": "americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company (1901—1966)",
-    "udalost": "125 let od narození",
-    "datum": "5. prosince",
-    "score": 218,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney"
   },
   {
     "id": "Q352730-narození",
@@ -62,30 +43,9 @@
     "udalost": "75 let od narození",
     "datum": "1. prosince",
     "score": 45,
+    "zivotni_data": "1. prosince 1951 – 12. června 2023",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Treat_Williams"
-  },
-  {
-    "id": "Q134682-úmrtí",
-    "typ": "vyroci",
-    "jmeno": "Anastasius I.",
-    "popis": "papež",
-    "udalost": "1625 let od úmrtí",
-    "datum": "21. prosince",
-    "score": 76,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Anastasius_I."
-  },
-  {
-    "id": "Q10088-narození",
-    "typ": "vyroci",
-    "jmeno": "Fateh Alí Tipú",
-    "popis": "sultán Maisúrského království",
-    "udalost": "275 let od narození",
-    "datum": "1. prosince",
-    "score": 65,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Fateh_Al%C3%AD_Tip%C3%BA"
   },
   {
     "id": "Q310155-narození",
@@ -95,6 +55,7 @@
     "udalost": "75 let od narození",
     "datum": "8. prosince",
     "score": 46,
+    "zivotni_data": "nar. 8. prosince 1951",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Bill_Bryson"
   },
@@ -106,8 +67,57 @@
     "udalost": "200 let od narození",
     "datum": "3. prosince",
     "score": 46,
+    "zivotni_data": "3. prosince 1826 – 1885",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/George_B._McClellan"
+  },
+  {
+    "id": "Q84455-narození",
+    "typ": "vyroci",
+    "jmeno": "Ödön von Horváth",
+    "popis": "rakouský dramatik a spisovatel",
+    "udalost": "125 let od narození",
+    "datum": "9. prosince",
+    "score": 48,
+    "zivotni_data": "9. prosince 1901 – 1. června 1938",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/%C3%96d%C3%B6n_von_Horv%C3%A1th"
+  },
+  {
+    "id": "Q8704-narození",
+    "typ": "vyroci",
+    "jmeno": "Walt Disney",
+    "popis": "americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company (1901—1966)",
+    "udalost": "125 let od narození",
+    "datum": "5. prosince",
+    "score": 218,
+    "zivotni_data": "5. prosince 1901 – 15. prosince 1966",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney"
+  },
+  {
+    "id": "Q10088-narození",
+    "typ": "vyroci",
+    "jmeno": "Fateh Alí Tipú",
+    "popis": "sultán Maisúrského království",
+    "udalost": "275 let od narození",
+    "datum": "1. prosince",
+    "score": 65,
+    "zivotni_data": "1. prosince 1751 – 4. května 1799",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Fateh_Al%C3%AD_Tip%C3%BA"
+  },
+  {
+    "id": "Q134682-úmrtí",
+    "typ": "vyroci",
+    "jmeno": "Anastasius I.",
+    "popis": "papež",
+    "udalost": "1625 let od úmrtí",
+    "datum": "21. prosince",
+    "score": 76,
+    "zivotni_data": "340 – 21. prosince 401",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Anastasius_I."
   },
   {
     "id": "Q489000-narození",
@@ -117,6 +127,7 @@
     "udalost": "50 let od narození",
     "datum": "25. prosince",
     "score": 47,
+    "zivotni_data": "nar. 25. prosince 1976",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Tuomas_Holopainen"
   },
@@ -128,8 +139,21 @@
     "udalost": "100 let od úmrtí",
     "datum": "12. prosince",
     "score": 43,
+    "zivotni_data": "4. února 1849 – 12. prosince 1926",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Jean_Richepin"
+  },
+  {
+    "id": "Q60128-narození",
+    "typ": "vyroci",
+    "jmeno": "Alexandr Alexandrovič Fadějev",
+    "popis": "sovětský spisovatel",
+    "udalost": "125 let od narození",
+    "datum": "24. prosince",
+    "score": 45,
+    "zivotni_data": "24. prosince 1901 – 13. května 1956",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Alexandr_Fad%C4%9Bjev"
   },
   {
     "id": "Q47484-úmrtí",
@@ -139,6 +163,7 @@
     "udalost": "75 let od úmrtí",
     "datum": "19. prosince",
     "score": 145,
+    "zivotni_data": "22. listopadu 1869 – 19. prosince 1951",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Andr%C3%A9_Gide"
   },
@@ -150,19 +175,9 @@
     "udalost": "400 let od narození",
     "datum": "7. prosince",
     "score": 86,
+    "zivotni_data": "7. prosince 1626 – 19. dubna 1689",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Kristina_%C5%A0v%C3%A9dsk%C3%A1"
-  },
-  {
-    "id": "Q60128-narození",
-    "typ": "vyroci",
-    "jmeno": "Alexandr Alexandrovič Fadějev",
-    "popis": "sovětský spisovatel",
-    "udalost": "125 let od narození",
-    "datum": "24. prosince",
-    "score": 45,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Alexandr_Fad%C4%9Bjev"
   },
   {
     "id": "Q258715-narození",
@@ -172,19 +187,9 @@
     "udalost": "100 let od narození",
     "datum": "21. prosince",
     "score": 59,
+    "zivotni_data": "21. prosince 1926 – 26. února 2011",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Arno%C5%A1t_Lustig"
-  },
-  {
-    "id": "Q323738-úmrtí",
-    "typ": "vyroci",
-    "jmeno": "Přemysl Pitter",
-    "popis": "český pacifista a pedagog",
-    "udalost": "50 let od úmrtí",
-    "datum": "15. prosince",
-    "score": 39,
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/P%C5%99emysl_Pitter"
   },
   {
     "id": "Q526473-narození",
@@ -194,8 +199,21 @@
     "udalost": "100 let od narození",
     "datum": "2. prosince",
     "score": 46,
+    "zivotni_data": "2. prosince 1926 – 30. září 2002",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Milo%C5%A1_Macourek"
+  },
+  {
+    "id": "Q20164564-narození",
+    "typ": "vyroci",
+    "jmeno": "Svetlana Žuchová",
+    "popis": "Slovenská spisovatelka a překladateka odborné literatury, vystudovala psychologii a medicínu, psychoterapeutka.",
+    "udalost": "50 let od narození",
+    "datum": "24. prosince",
+    "score": 39,
+    "zivotni_data": "nar. 24. prosince 1976",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Svetlana_%C5%BDuchov%C3%A1"
   },
   {
     "id": "Q1988946-narození",
@@ -205,8 +223,21 @@
     "udalost": "125 let od narození",
     "datum": "11. prosince",
     "score": 41,
+    "zivotni_data": "11. prosince 1901 – 21. května 1974",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Jaroslav_Marvan"
+  },
+  {
+    "id": "Q323738-úmrtí",
+    "typ": "vyroci",
+    "jmeno": "Přemysl Pitter",
+    "popis": "český pacifista a pedagog",
+    "udalost": "50 let od úmrtí",
+    "datum": "15. prosince",
+    "score": 39,
+    "zivotni_data": "21. června 1895 – 15. prosince 1976",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/P%C5%99emysl_Pitter"
   },
   {
     "id": "Q957342-narození",
@@ -216,6 +247,7 @@
     "udalost": "100 let od narození",
     "datum": "9. prosince",
     "score": 45,
+    "zivotni_data": "9. prosince 1926 – 13. srpna 1995",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Jan_K%C5%99esadlo"
   },
@@ -227,6 +259,7 @@
     "udalost": "50 let od narození",
     "datum": "29. prosince",
     "score": 46,
+    "zivotni_data": "nar. 29. prosince 1976",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Michal_Hvoreck%C3%BD"
   },
@@ -238,19 +271,21 @@
     "udalost": "50 let od narození",
     "datum": "25. prosince",
     "score": 38,
+    "zivotni_data": "nar. 25. prosince 1976",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Pavel_B%C4%9Blobr%C3%A1dek"
   },
   {
-    "id": "Q20164564-narození",
-    "typ": "vyroci",
-    "jmeno": "Svetlana Žuchová",
-    "popis": "Slovenská spisovatelka a překladateka odborné literatury, vystudovala psychologii a medicínu, psychoterapeutka.",
-    "udalost": "50 let od narození",
-    "datum": "24. prosince",
-    "score": 39,
+    "id": "Q380265-umrti-nedavno",
+    "typ": "umrti",
+    "jmeno": "Rjú Murakami",
+    "popis": "japonský spisovatel, scenárista a režisér",
+    "udalost": "nedávno zemřel/a",
+    "datum": "17. října",
+    "score": 45,
+    "zivotni_data": "19. února 1952 – 17. října 2026",
     "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Svetlana_%C5%BDuchov%C3%A1"
+    "odkaz": "https://cs.wikipedia.org/wiki/Rj%C3%BA_Murakami"
   },
   {
     "id": "Q3394963-umrti-nedavno",
@@ -260,17 +295,20 @@
     "udalost": "nedávno zemřel/a",
     "datum": "8. listopadu",
     "score": 39,
+    "zivotni_data": "22. ledna 1940 – 8. listopadu 2026",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Peter_Jaro%C5%A1"
   },
   {
-    "id": "nobel-2026",
+    "id": "nobel-2026-0",
     "typ": "ocenění",
     "jmeno": "Anne Carson",
-    "popis": "",
+    "popis": "kanadská profesorka klasických jazyků, literární kritička, též básnířka, esejistka a překladatelka",
     "udalost": "Nobelova cena za literaturu 2026",
     "datum": "",
     "score": 1000,
+    "zivotni_data": "nar. 21. června 1950",
+    "wiki_url": "https://cs.wikipedia.org/wiki/Anne_Carsonov%C3%A1",
     "zdroj": "nobelprize.org",
     "odkaz": "https://www.nobelprize.org/prizes/literature/2026/summary/"
   }
