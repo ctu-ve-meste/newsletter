@@ -27,21 +27,6 @@
     },
     {
       "typ": "vyroci",
-      "nadpis": "Walt Disney",
-      "text": "Walt Disney, americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company: 125 let od narození (5. prosince).",
-      "zivotni_data": "5. prosince 1901 – 15. prosince 1966",
-      "wiki_url": "",
-      "zdroj": "Wikidata / Wikipedie",
-      "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney",
-      "zahrnout": true,
-      "wiki_text": "Walter Elias „Walt“ Disney byl americký filmový producent, režisér, scenárista, dabér, animátor, podnikatel a filantrop. Ve své době silně ovlivnil zábavní průmysl. Jako zakladatel firmy Walt Disney Productions se stal jedním z nejznámějších filmových producentů na světě.",
-      "wiki_odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney",
-      "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Walt_Disney_1946.JPG/330px-Walt_Disney_1946.JPG?utm_source=cs.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-      "foto_popisek": "Foto: Boy Scouts of America, Public domain (Wikimedia Commons)",
-      "foto_odkaz": "https://commons.wikimedia.org/wiki/File:Walt_Disney_1946.JPG"
-    },
-    {
-      "typ": "vyroci",
       "nadpis": "Rainer Maria Rilke",
       "text": "Rainer Maria Rilke, rakouský básník a spisovatel: 100 let od úmrtí (29. prosince).",
       "zivotni_data": "4. prosince 1875 – 29. prosince 1926",
@@ -54,6 +39,21 @@
       "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Rainer_Maria_Rilke_1900.jpg/330px-Rainer_Maria_Rilke_1900.jpg?utm_source=cs.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
       "foto_popisek": "Foto: Unknown authorUnknown author, Public domain (Wikimedia Commons)",
       "foto_odkaz": "https://commons.wikimedia.org/wiki/File:Rainer_Maria_Rilke_1900.jpg"
+    },
+    {
+      "typ": "vyroci",
+      "nadpis": "Arnošt Lustig",
+      "text": "Arnošt Lustig, český novinář, politický spisovatel, romanopisec a spisovatel: 100 let od narození (21. prosince).",
+      "zivotni_data": "21. prosince 1926 – 26. února 2011",
+      "wiki_url": "",
+      "zdroj": "Wikidata / Wikipedie",
+      "odkaz": "https://cs.wikipedia.org/wiki/Arno%C5%A1t_Lustig",
+      "zahrnout": true,
+      "wiki_text": "Arnošt Lustig byl český židovský spisovatel a publicista světového významu, autor celé řady děl s tématem holokaustu.",
+      "wiki_odkaz": "https://cs.wikipedia.org/wiki/Arno%C5%A1t_Lustig",
+      "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Arnost_Lustig_a_Marketa_Malisova_-1_cropped.jpg/330px-Arnost_Lustig_a_Marketa_Malisova_-1_cropped.jpg?utm_source=cs.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "foto_popisek": "Foto: Arnost_Lustig_a_Marketa_Malisova_-1.jpg: Jiří Nedorost\nderivative work: Faigl.la…, CC BY 3.0 (Wikimedia Commons)",
+      "foto_odkaz": "https://commons.wikimedia.org/wiki/File:Arnost_Lustig_a_Marketa_Malisova_-1_cropped.jpg"
     }
   ],
   "vzkaz": ""
