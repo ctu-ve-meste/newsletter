@@ -30,7 +30,8 @@ const PENDING_DAYS = 30;        // po kolika dnech smazat adresy, které nepotvr
 const SIGNUP_DAILY_MAX = 60;    // ochrana přihlašovacího formuláře proti zneužití
 const BACKUPS_KEEP = 4;
 const TZ = 'Europe/Prague';
-const YELLOW = '#FFD400';
+const YELLOW = '#FFE95A';   // barva ročníku 2027 z webu (src/styles/tokens.css → --rocnik-2027); při novém ročníku změnit tady i v Admin.html
+const LOGO_URL = 'https://raw.githubusercontent.com/ctu-ve-meste/newsletter/main/logo-ctu.png';   // logo „čtu“ z docs/brand/logo/logo_jen_ctu.svg (e-mailoví klienti neumí SVG, proto PNG)
 const WEEKDAYS = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
 
 /* ---------- pomocné ---------- */
@@ -659,7 +660,7 @@ function buildHtml_(d, unsubUrl, banner, ctx) {
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#000;color:#fff">
 ${banner ? `<tr><td style="background:${Y};color:#000;font:bold 14px/1.4 Arial,sans-serif;padding:12px 32px">${esc_(banner)}</td></tr>` : ''}
 ${topLine}
-<tr><td style="padding:32px 32px 0;font:bold 44px Arial,sans-serif;color:#fff">čtu<span style="color:${Y}">.</span> <span style="font-size:16px;font-weight:normal">ve městě</span></td></tr>
+<tr><td style="padding:32px 32px 0"><a href="${ORG.web}"><img src="${LOGO_URL}" width="120" height="63" alt="Čtu ve městě" style="display:block;border:0;width:120px;height:auto;font:bold 32px Arial,sans-serif;color:#fff"></a></td></tr>
 ${rows}
 <tr><td style="padding:32px;font:14px/1.6 Arial,sans-serif;color:#aaa">
 <a href="${ORG.web}" style="color:${Y}">ctuvemeste.cz</a> · <a href="${ORG.fb}" style="color:${Y}">Facebook</a> · <a href="${ORG.ig}" style="color:${Y}">Instagram</a><br><br>
