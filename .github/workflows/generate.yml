@@ -37,3 +37,18 @@ jobs:
           git add polozky.json kandidati.json
           git diff --cached --quiet || git commit -m "Návrh newsletteru"
           git push
+      - name: Spustit AI texty (scheduled task v Claude)
+        env:
+          ROUTINE_FIRE_URL: ${{ secrets.ROUTINE_FIRE_URL }}
+          ROUTINE_TOKEN: ${{ secrets.ROUTINE_TOKEN }}
+        run: |
+          if [ -z "$ROUTINE_FIRE_URL" ] || [ -z "$ROUTINE_TOKEN" ]; then
+            echo "AI task není nastaven (chybí secrets ROUTINE_FIRE_URL a ROUTINE_TOKEN), přeskakuji."
+            exit 0
+          fi
+          curl -sS --fail-with-body -X POST "$ROUTINE_FIRE_URL" \
+            -H "Authorization: Bearer $ROUTINE_TOKEN" \
+            -H "anthropic-beta: experimental-cc-routine-2026-04-01" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "Content-Type: application/json" \
+            -d '{}' || echo "::warning::Spuštění AI tasku selhalo, návrh zůstává bez AI textů."

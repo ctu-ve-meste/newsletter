@@ -1,6 +1,6 @@
 # Zadání pro scheduled task: AI texty newsletteru
 
-Spouští se každý měsíc 20. po doběhnutí GitHub Action „Generate newsletter draft“ (ta běží v 6:00 UTC, task pusť o hodinu později).
+Spouští ho API trigger z GitHub Action „Generate newsletter draft“ hned po tom, co Action uloží nový návrh (každý běh Action, tedy i ruční). Případně se dá pustit ručně v „Run now“, ale až po doběhnutí Action.
 Úkol: přepsat texty ve `polozky.json` do `polozky_claude.json`. Nic jiného nedělej.
 
 ## Postup
