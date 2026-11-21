@@ -596,7 +596,8 @@ function webIssueUrl_(mesic) { return prop_('WEB_URL').replace(/\/+$/, '') + '/n
  * Vrací adresu vydání na webu, nebo null (chybí nastavení, nebo GitHub selhal; pak se použije Apps Script).
  */
 function publishToWeb_(d, id) {
-  if (!prop_('GITHUB_TOKEN') || !prop_('WEB_URL')) return null;
+  const props = PropertiesService.getScriptProperties();
+  if (!props.getProperty('GITHUB_TOKEN') || !props.getProperty('WEB_URL')) return null;   // nenastaveno = archiv na web se nepoužívá
   try {
     const html = buildHtml_(d, '', null, { archive: true, icsUrl: icsText_(d, id) ? prop_('WEBAPP_URL') + '?a=ics&i=' + id : '' });
     const soubor = { mesic: d.mesic, predmet: subject_(d), odeslano: Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd'), html: html };
