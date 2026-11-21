@@ -594,7 +594,7 @@ function buildHtml_(d, unsubUrl, banner, ctx) {
   const label = t => !t ? '' : `<div style="font:bold 11px Arial,sans-serif;letter-spacing:3px;color:${Y};text-transform:uppercase;margin-bottom:6px">${esc_(t)}</div>`;
   const h = t => `<h2 style="font:bold 24px Arial,sans-serif;margin:0 0 10px;color:#fff">${esc_(t)}<span style="color:${Y}">.</span></h2>`;
   const link = (u, t) => url_(u) ? `<p style="margin:8px 0 0"><a href="${url_(u)}" style="color:${Y}">${esc_(t || 'Více zde')} →</a></p>` : '';
-  const block = (lab, inner) => `<tr><td style="padding:28px 32px 0">${label(lab)}${inner}</td></tr>`;
+  const block = (lab, inner) => `<tr><td class="pad" style="padding:28px 32px 0">${label(lab)}${inner}</td></tr>`;
   const p = t => `<p style="margin:0 0 8px;font:17px/1.6 Georgia,serif;color:#eee">${esc_(t)}</p>`;
 
   let rows = '';
@@ -615,7 +615,7 @@ function buildHtml_(d, unsubUrl, banner, ctx) {
   const dates = i => i.zivotni_data
     ? `<p style="margin:-4px 0 10px;font:13px Arial,sans-serif;color:#999">(${esc_(i.zivotni_data)})</p>` : '';
   const caption = i => i.foto_popisek
-    ? `<div style="font:10px/1.3 Arial,sans-serif;color:#888;padding-top:4px">${esc_(i.foto_popisek)}${url_(i.foto_odkaz) ? ` · <a href="${url_(i.foto_odkaz)}" style="color:#888">zdroj</a>` : ''}</div>` : '';
+    ? `<div style="font:12px/1.3 Arial,sans-serif;color:#888;padding-top:4px">${esc_(i.foto_popisek)}${url_(i.foto_odkaz) ? ` · <a href="${url_(i.foto_odkaz)}" style="color:#888">zdroj</a>` : ''}</div>` : '';
   const wiki = i => i.wiki_text
     ? `<p style="margin:0 0 8px;font:15px/1.6 Georgia,serif;color:#ccc">${esc_(i.wiki_text)} <span style="font:12px Arial,sans-serif;color:#888">(${url_(i.wiki_odkaz) ? `<a href="${url_(i.wiki_odkaz)}" style="color:#888">Wikipedie</a>` : 'Wikipedie'}, CC BY-SA 4.0)</span></p>`
     : (i.podle_wiki
@@ -623,10 +623,14 @@ function buildHtml_(d, unsubUrl, banner, ctx) {
       : '');
   const itemBody = i => {
     const text = p(i.text) + wiki(i) + link(i.odkaz, i.zdroj ? 'Zdroj: ' + i.zdroj : 'Více zde');
+    // Hybrid layout: foto vedle textu na desktopu, na úzkém displeji text sám spadne pod foto.
     return url_(i.foto)
-      ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>` +
-        `<td width="150" valign="top" style="width:150px;padding-right:16px"><img src="${url_(i.foto)}" width="150" alt="${esc_(i.nadpis)}" style="display:block;width:150px;max-width:100%;height:auto;border:0">${caption(i)}</td>` +
-        `<td valign="top">${text}</td></tr></table>`
+      ? `<div style="font-size:0;text-align:left">` +
+        `<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="166" valign="top"><![endif]-->` +
+        `<div style="display:inline-block;vertical-align:top;width:150px;max-width:100%;padding:0 16px 12px 0"><img src="${url_(i.foto)}" width="150" alt="${esc_(i.nadpis)}" style="display:block;width:150px;max-width:100%;height:auto;border:0">${caption(i)}</div>` +
+        `<!--[if mso]></td><td valign="top"><![endif]-->` +
+        `<div style="display:inline-block;vertical-align:top;width:100%;max-width:360px">${text}</div>` +
+        `<!--[if mso]></td></tr></table><![endif]--></div>`
       : text;
   };
   (d.festival || []).filter(filled).forEach((i, n) => {
@@ -650,7 +654,7 @@ function buildHtml_(d, unsubUrl, banner, ctx) {
     ? `Tento e-mail dostáváte, protože jste se přihlásili k odběru. <a href="${esc_(unsubUrl)}" style="color:#ccc">Odhlásit odběr</a> (nebo odpovězte slovem „odhlásit“).`
     : `Newsletter Čtu ve městě. Odběr zrušíte odkazem v e-mailu, který vám přišel. <a href="${esc_(prop_('WEBAPP_URL'))}?a=signup" style="color:#ccc">Přihlásit se k odběru</a>.`;
 
-  return `<!doctype html><html><body style="margin:0;background:#000">
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>@media(max-width:480px){.pad{padding-left:20px!important;padding-right:20px!important}}</style></head><body style="margin:0;background:#000">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#000"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#000;color:#fff">
 ${banner ? `<tr><td style="background:${Y};color:#000;font:bold 14px/1.4 Arial,sans-serif;padding:12px 32px">${esc_(banner)}</td></tr>` : ''}
