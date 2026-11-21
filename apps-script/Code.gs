@@ -31,7 +31,7 @@ const SIGNUP_DAILY_MAX = 60;    // ochrana přihlašovacího formuláře proti z
 const BACKUPS_KEEP = 4;
 const TZ = 'Europe/Prague';
 const YELLOW = '#FFE95A';   // barva ročníku 2027 z webu (src/styles/tokens.css → --rocnik-2027); při novém ročníku změnit tady i v Admin.html
-const LOGO_URL = 'https://raw.githubusercontent.com/ctu-ve-meste/newsletter/main/logo-ctu.png';   // logo „čtu“ z docs/brand/logo/logo_jen_ctu.svg (e-mailoví klienti neumí SVG, proto PNG)
+const LOGO_URL = 'https://ctu-ve-meste.github.io/web/logo-ctu.png';   // logo „čtu“ (web: public/logo-ctu.png, z docs/brand/logo/logo_jen_ctu.svg); e-mailoví klienti neumí SVG, proto PNG. Po přepnutí domény změnit na https://www.ctuvemeste.cz/logo-ctu.png
 const WEEKDAYS = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
 
 /* ---------- pomocné ---------- */
