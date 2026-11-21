@@ -79,3 +79,17 @@ Místo API klíče může texty ze světa knih přepsat Claude jako naplánovan�
 - **Co dělá schvalovací stránka:** když `polozky_claude.json` existuje a je pro stejný měsíc, převezme z něj **jen texty** (odkazy, zdroje, fotky a ostatní zůstávají z `polozky.json`) a nahoře ukáže „Texty napsala AI“. Jinak ukáže „Návrh bez AI“. Člověk pořád kontroluje a odesílá.
 - **Jak se task spouští:** Action na posledním kroku zavolá API trigger tasku. V repu (Settings → Secrets and variables → Actions) jsou potřeba secrets `ROUTINE_FIRE_URL` (adresa „Fire URL“ z API triggeru) a `ROUTINE_TOKEN` (token, který se zobrazí jen jednou). Bez nich se krok přeskočí a zůstane návrh bez AI. U tasku pak nech jen tento API trigger, ne časový, jinak poběží dvakrát.
 - **E-mail s odkazem na schvalovací stránku** chodí vždy 21. v měsíci kolem 8:00 (spouštěč `remindApproval` v Apps Scriptu). Nezávisí na Action ani na tasku. AI texty už v tu chvíli bývají hotové.
+
+### G) Archiv newsletterů na webu (automaticky)
+
+Po kliknutí na „Odeslat všem“ Apps Script uloží vydání do tohoto repa jako `archiv/RRRR-MM.json` a spustí nasazení webu
+(`ctu-ve-meste/web`, workflow `deploy.yml`). Web ze souborů vytvoří stránku `/newsletter/RRRR-MM/` a seznam na `/newsletter/`.
+Odkaz „Zobrazit v prohlížeči“ v e-mailu pak vede na web. Když uložení selže, e-mail se pošle normálně s odkazem na Apps Script.
+
+Nastavení (jednorázově):
+1. GitHub → Settings → Developer settings → **Fine-grained personal access token**, přístup jen k repozitářům `newsletter` a `web`,
+   oprávnění: `newsletter` → *Contents: Read and write*, `web` → *Actions: Read and write*. Nejlépe z účtu spolku, ne osobního.
+2. Do Vlastností skriptu přidej `GITHUB_TOKEN` (ten token) a `WEB_URL` (např. `https://ctu-ve-meste.github.io/web`,
+   po přepnutí domény `https://www.ctuvemeste.cz`).
+3. Token nikdy nepatří do repa. Bez obou vlastností se archiv na web neukládá a vše funguje jako dřív.
+4. Testovací e-maily (`[TEST]`) na web nejdou, jejich odkaz zůstává na Apps Scriptu.
