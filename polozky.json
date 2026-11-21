@@ -45,6 +45,22 @@
     },
     {
       "typ": "vyroci",
+      "nadpis": "Walt Disney",
+      "text": "Walt Disney, americký animátor, producent, režisér, scenárista, dabér a podnikatel, zakladatel The Walt Disney Company: 125 let od narození (5. prosince).",
+      "zivotni_data": "5. prosince 1901 – 15. prosince 1966",
+      "wiki_url": "",
+      "zdroj": "Wikidata / Wikipedie",
+      "odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney",
+      "zahrnout": true,
+      "wiki_text": "Walter Elias „Walt“ Disney byl americký filmový producent, režisér, scenárista, dabér, animátor, podnikatel a filantrop. Ve své době silně ovlivnil zábavní průmysl. Jako zakladatel firmy Walt Disney Productions se stal jedním z nejznámějších filmových producentů na světě.",
+      "wiki_odkaz": "https://cs.wikipedia.org/wiki/Walt_Disney",
+      "wiki_uvod": "Walter Elias „Walt“ Disney byl americký filmový producent, režisér, scenárista, dabér, animátor, podnikatel a filantrop. Ve své době silně ovlivnil zábavní průmysl. Jako zakladatel (společně se svým bratrem Royem O. Disneyem) firmy Walt Disney Productions se stal jedním z nejznámějších filmových producentů na světě. Společnost, kterou založil, se v současnosti jmenuje The Walt Disney Company a má roční obrat asi 35 miliard dolarů. Znám je jako filmový producent a bavič, zároveň však také jako inovátor animovaného filmu a zábavních parků. Společně se zaměstnanci společnosti vytvořil řadu světově známých postaviček včetně Mickey Mouse, kterému Disney propůjčil i vlastní hlas. Vyhrál 26 Oscarů z 59 nominací, včetně rekordních čtyř Oscarů v jednom roce, čímž v tomto oboru získal více cen a nominací než kdokoli jiný. Také obdržel sedm ocenění Emmy. Po něm pojmenované zábavní parky můžeme najít ve Spojených státech amerických (Disneyland, Walt Disney World Resort), v Japonsku (Tokyo Disney Resort), Francii (Disneyland Paris) a Číně (Hong Kong Disneyland). Zemřel na rakovinu plic v kalifornském Burbanku.",
+      "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Walt_Disney_1946.JPG/330px-Walt_Disney_1946.JPG?utm_source=cs.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "foto_popisek": "Foto: Boy Scouts of America, Public domain (Wikimedia Commons)",
+      "foto_odkaz": "https://commons.wikimedia.org/wiki/File:Walt_Disney_1946.JPG"
+    },
+    {
+      "typ": "vyroci",
       "nadpis": "Rainer Maria Rilke",
       "text": "Rainer Maria Rilke, rakouský básník a spisovatel: 100 let od úmrtí (29. prosince).",
       "zivotni_data": "4. prosince 1875 – 29. prosince 1926",
@@ -75,39 +91,6 @@
       "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Rainer_Maria_Rilke_1900.jpg/330px-Rainer_Maria_Rilke_1900.jpg?utm_source=cs.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
       "foto_popisek": "Foto: Unknown authorUnknown author, Public domain (Wikimedia Commons)",
       "foto_odkaz": "https://commons.wikimedia.org/wiki/File:Rainer_Maria_Rilke_1900.jpg"
-    },
-    {
-      "typ": "vyroci",
-      "nadpis": "Arnošt Lustig",
-      "text": "Arnošt Lustig, český novinář, politický spisovatel, romanopisec a spisovatel: 100 let od narození (21. prosince).",
-      "zivotni_data": "21. prosince 1926 – 26. února 2011",
-      "wiki_url": "",
-      "zdroj": "Wikidata / Wikipedie",
-      "odkaz": "https://cs.wikipedia.org/wiki/Arno%C5%A1t_Lustig",
-      "zahrnout": true,
-      "wiki_text": "Arnošt Lustig byl český židovský spisovatel a publicista světového významu, autor celé řady děl s tématem holokaustu.",
-      "wiki_odkaz": "https://cs.wikipedia.org/wiki/Arno%C5%A1t_Lustig",
-      "wiki_uvod": "Arnošt Lustig byl český židovský spisovatel a publicista světového významu, autor celé řady děl s tématem holokaustu.",
-      "wiki_dilo": [
-        "Noc a naděje, 1958 – sedm povídek inspirovaných autorovými zážitky v terezínském ghettu",
-        "První stanice štěstí, 1961 – čtrnáct příběhů s poněkud socialistickým nádechem",
-        "Nikoho neponížíš, 1963 – čtyři povídky z prostředí protektorátu a květnové revoluce",
-        "Indecent Dreams (Neslušné sny), 1988, anglicky – povídky „Modrý den“, „Dívka s jizvou“ a „Neslušné sny“",
-        "Breviář Františka Vondráčka, 1990 [?] – úvahy o českých spisovatelích 20.–21. století, názory",
-        "Trilogie o osudech tří židovských žen:",
-        "Tanga: Dívka z Hamburku, 1992; v r. 2000 jako Tanga z Hamburku: židovská trilogie II",
-        "Neslušné sny, 1995 – povídky „Modrý den“, „Dívka s jizvou“ a „Neslušné sny“",
-        "Dobrý den, pane Lustig: (myšlenky o životě), 1999 (spoluautor Miroslav Kouba)",
-        "Odpovědi: rozhovory s Harry Jamesem Cargassem a Michalem Bauerem, 2000",
-        "3 × 18 (portréty a postřehy), 2002 (spoluautor František Cinger); Lustigovy vzpomínky a úvahy o smyslu života, o Bohu, o lidskosti a nelidskosti",
-        "Esence, 2004 – tematicky uspořádaný výběr myšlenek, citátů a bonmotů z autorových knih",
-        "Zpověď, 2009 – esence vzpomínek a úvah o životě",
-        "Okamžiky s Otou Pavlem, 2010",
-        "Případ Marie Navarové, 2010 – poslední autorův román; jak zasáhla Heydrichova smrt osud náhodné ženy"
-      ],
-      "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Arnost_Lustig_a_Marketa_Malisova_-1_cropped.jpg/330px-Arnost_Lustig_a_Marketa_Malisova_-1_cropped.jpg?utm_source=cs.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-      "foto_popisek": "Foto: Arnost_Lustig_a_Marketa_Malisova_-1.jpg: Jiří Nedorost\nderivative work: Faigl.la…, CC BY 3.0 (Wikimedia Commons)",
-      "foto_odkaz": "https://commons.wikimedia.org/wiki/File:Arnost_Lustig_a_Marketa_Malisova_-1_cropped.jpg"
     }
   ],
   "vzkaz": ""
