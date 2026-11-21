@@ -10,6 +10,8 @@
  *   ADMIN_KEY    – dlouhý náhodný řetězec pro schvalovací stránku
  *   ADMIN_EMAILS – e-maily, kam chodí testy, oddělené čárkou
  *   ITEMS_URL    – raw URL souboru polozky.json z GitHubu
+ *   GITHUB_TOKEN – (nepovinné) token pro uložení vydání na web, viz README, část G
+ *   WEB_URL      – (nepovinné) adresa webu bez lomítka na konci, např. https://ctu-ve-meste.github.io/web
  *   ITEMS_URL_AI – (nepovinné) raw URL souboru polozky_claude.json; když chybí, odvodí se z ITEMS_URL
  */
 
@@ -570,6 +572,54 @@ function icsText_(d, id) {
 }
 
 function icsUrl_(it) { return icsText_(it.d, it.id) ? prop_('WEBAPP_URL') + '?a=ics&i=' + it.id : ''; }
+/* ---------- archiv na webu ---------- */
+
+const GH_NEWSLETTER = 'ctu-ve-meste/newsletter';   // sem se ukládají vydání (archiv/RRRR-MM.json)
+const GH_WEB = 'ctu-ve-meste/web';                  // tohle repo se po uložení znovu sestaví (deploy.yml)
+
+function ghFetch_(method, path, payload) {
+  const res = UrlFetchApp.fetch('https://api.github.com/' + path, {
+    method: method,
+    contentType: 'application/json',
+    headers: { Authorization: 'Bearer ' + prop_('GITHUB_TOKEN'), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+    payload: payload ? JSON.stringify(payload) : undefined,
+    muteHttpExceptions: true,
+  });
+  return { code: res.getResponseCode(), body: res.getContentText() };
+}
+
+/** Adresa vydání na webu (WEB_URL bez lomítka na konci, např. https://ctu-ve-meste.github.io/web). */
+function webIssueUrl_(mesic) { return prop_('WEB_URL').replace(/\/+$/, '') + '/newsletter/' + mesic + '/'; }
+
+/**
+ * Uloží hotové vydání do repa newsletteru a spustí nasazení webu.
+ * Vrací adresu vydání na webu, nebo null (chybí nastavení, nebo GitHub selhal; pak se použije Apps Script).
+ */
+function publishToWeb_(d, id) {
+  if (!prop_('GITHUB_TOKEN') || !prop_('WEB_URL')) return null;
+  try {
+    const html = buildHtml_(d, '', null, { archive: true, icsUrl: icsText_(d, id) ? prop_('WEBAPP_URL') + '?a=ics&i=' + id : '' });
+    const soubor = { mesic: d.mesic, predmet: subject_(d), odeslano: Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd'), html: html };
+    const path = 'repos/' + GH_NEWSLETTER + '/contents/archiv/' + d.mesic + '.json';
+    const cur = ghFetch_('get', path);
+    const body = {
+      message: 'Archiv: newsletter ' + d.mesic,
+      content: Utilities.base64Encode(Utilities.newBlob(JSON.stringify(soubor, null, 1)).getBytes()),
+    };
+    if (cur.code === 200) body.sha = JSON.parse(cur.body).sha;
+    const put = ghFetch_('put', path, body);
+    if (put.code !== 200 && put.code !== 201) throw new Error('uložení ' + put.code + ': ' + put.body.slice(0, 200));
+    const run = ghFetch_('post', 'repos/' + GH_WEB + '/actions/workflows/deploy.yml/dispatches', { ref: 'main' });
+    if (run.code !== 204) log_('archiv na webu', 'vydání uloženo, ale nasazení webu se nespustilo (' + run.code + '); web se obnoví při nočním buildu');
+    log_('archiv na webu', 'vydání ' + d.mesic + ' uloženo');
+    return webIssueUrl_(d.mesic);
+  } catch (e) {
+    log_('chyba archivu na webu', String(e));
+    notify_('Newsletter ' + d.mesic + ' se nepodařilo uložit na web: ' + e + '. V e-mailu zůstává odkaz na Apps Script.');
+    return null;
+  }
+}
+
 function ctxFor_(d, id) {
   const base = prop_('WEBAPP_URL');
   return { viewUrl: base + '?a=view&i=' + id, icsUrl: icsText_(d, id) ? base + '?a=ics&i=' + id : '' };
@@ -819,6 +869,8 @@ function adminSend(key, d, mode) {
   try { processBounces(); } catch (e) { Logger.log('processBounces před odesláním: ' + e); }
   const id = saveIssue_(d, 'odesláno');
   const ctx = ctxFor_(d, id);
+  const webUrl = publishToWeb_(d, id);   // dřív než se začne posílat, aby stránka na webu stihla naběhnout
+  if (webUrl) ctx.viewUrl = webUrl;
   const lock = LockService.getScriptLock();
   lock.waitLock(30000);
   const start = Date.now();
