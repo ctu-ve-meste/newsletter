@@ -647,7 +647,9 @@ function buildHtml_(d, unsubUrl, banner, ctx) {
   const h = t => `<h2 style="font:bold 24px Arial,sans-serif;margin:0 0 10px;color:#fff">${esc_(t)}<span style="color:${Y}">.</span></h2>`;
   const link = (u, t) => url_(u) ? `<p style="margin:8px 0 0"><a href="${url_(u)}" style="color:${Y}">${esc_(t || 'Více zde')} →</a></p>` : '';
   const block = (lab, inner) => `<tr><td class="pad" style="padding:28px 32px 0">${label(lab)}${inner}</td></tr>`;
-  const p = t => `<p style="margin:0 0 8px;font:17px/1.6 Georgia,serif;color:#eee">${esc_(t)}</p>`;
+  // Enter v administraci: prázdný řádek = nový odstavec, jeden Enter = zalomení řádku.
+  const multi = t => esc_(t).replace(/\r\n?/g, '\n').replace(/\n{2,}/g, '</p><p style="margin:0 0 8px;font:17px/1.6 Georgia,serif;color:#eee">').replace(/\n/g, '<br>');
+  const p = t => `<p style="margin:0 0 8px;font:17px/1.6 Georgia,serif;color:#eee">${multi(t)}</p>`;
 
   let rows = '';
   const ki = kafeInfo_(d);
@@ -669,7 +671,7 @@ function buildHtml_(d, unsubUrl, banner, ctx) {
   const caption = i => i.foto_popisek
     ? `<div style="font:12px/1.3 Arial,sans-serif;color:#888;padding-top:4px">${esc_(i.foto_popisek)}${url_(i.foto_odkaz) ? ` · <a href="${url_(i.foto_odkaz)}" style="color:#888">zdroj</a>` : ''}</div>` : '';
   const wiki = i => i.wiki_text
-    ? `<p style="margin:0 0 8px;font:15px/1.6 Georgia,serif;color:#ccc">${esc_(i.wiki_text)} <span style="font:12px Arial,sans-serif;color:#888">(${url_(i.wiki_odkaz) ? `<a href="${url_(i.wiki_odkaz)}" style="color:#888">Wikipedie</a>` : 'Wikipedie'}, CC BY-SA 4.0)</span></p>`
+    ? `<p style="margin:0 0 8px;font:15px/1.6 Georgia,serif;color:#ccc">${esc_(i.wiki_text).replace(/\r?\n/g, '<br>')} <span style="font:12px Arial,sans-serif;color:#888">(${url_(i.wiki_odkaz) ? `<a href="${url_(i.wiki_odkaz)}" style="color:#888">Wikipedie</a>` : 'Wikipedie'}, CC BY-SA 4.0)</span></p>`
     : (i.podle_wiki
       ? `<p style="margin:0 0 8px;font:12px Arial,sans-serif;color:#888">Podle ${url_(i.wiki_odkaz) ? `<a href="${url_(i.wiki_odkaz)}" style="color:#888">Wikipedie</a>` : 'Wikipedie'} (CC BY-SA 4.0)</p>`
       : '');
