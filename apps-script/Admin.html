@@ -20,6 +20,8 @@
   .hint{font:13px/1.4 Arial;color:#999;margin:4px 0 8px}
   .row{display:flex;align-items:center}
   .info{font:14px Arial;color:#ccc}
+  .aibar{font:14px/1.4 Arial;padding:10px 12px;margin:10px 0;border:1px solid #444;color:#ccc}
+  .aibar.on{border-color:#FFD400;color:#FFD400}
   iframe{width:100%;height:640px;border:1px solid #333;background:#000;margin-top:10px}
   .chk{display:flex;gap:8px;align-items:center;color:#FFD400;font:14px Arial}
 </style>
@@ -28,6 +30,7 @@
 <main>
   <h1>Newsletter<span>.</span></h1>
   <div id="status" class="info">Načítám…</div>
+  <div id="aibar" class="aibar" style="display:none"></div>
   <div id="form"></div>
   <div id="buttons" style="display:none">
     <button class="sec" onclick="preview()">Náhled</button>
@@ -139,6 +142,17 @@ function collect(){
   });
   return out;
 }
+function showAi(a){
+  var b = el('aibar'); a = a || {};
+  b.style.display = 'block';
+  if (a.used) {
+    b.className = 'aibar on';
+    b.textContent = 'Texty ze světa knih napsala AI (' + a.used + ' z ' + a.total + ' položek). Zkontroluj fakta, názvy knih a odkazy. Zdroje a odkazy jsou z původního návrhu.';
+  } else {
+    b.className = 'aibar';
+    b.textContent = 'Návrh bez AI.' + (a.note ? ' ' + a.note : '');
+  }
+}
 function showStats(s){
   el('status').innerHTML = 'Odebírá: <b>'+s.odebira+'</b> · čeká na odeslání tohoto čísla: <b>'+s.zbyva+'</b> · čeká na potvrzení odběru: <b>'+(s.ceka||0)+'</b> · zbývající denní limit e-mailů: <b>'+s.quota+'</b>';
 }
@@ -164,7 +178,7 @@ function send(mode){
 }
 
 google.script.run.withSuccessHandler(function(r){
-  D = r.data; showStats(r.stats); render();
+  D = r.data; showStats(r.stats); showAi(r.ai); render();
 }).withFailureHandler(fail).adminLoad(KEY);
 </script>
 </body>

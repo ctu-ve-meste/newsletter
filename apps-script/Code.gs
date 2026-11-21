@@ -10,6 +10,7 @@
  *   ADMIN_KEY    – dlouhý náhodný řetězec pro schvalovací stránku
  *   ADMIN_EMAILS – e-maily, kam chodí testy, oddělené čárkou
  *   ITEMS_URL    – raw URL souboru polozky.json z GitHubu
+ *   ITEMS_URL_AI – (nepovinné) raw URL souboru polozky_claude.json; když chybí, odvodí se z ITEMS_URL
  */
 
 const SHEET = 'Odběratelé';
@@ -617,7 +618,9 @@ function buildHtml_(d, unsubUrl, banner, ctx) {
     ? `<div style="font:10px/1.3 Arial,sans-serif;color:#888;padding-top:4px">${esc_(i.foto_popisek)}${url_(i.foto_odkaz) ? ` · <a href="${url_(i.foto_odkaz)}" style="color:#888">zdroj</a>` : ''}</div>` : '';
   const wiki = i => i.wiki_text
     ? `<p style="margin:0 0 8px;font:15px/1.6 Georgia,serif;color:#ccc">${esc_(i.wiki_text)} <span style="font:12px Arial,sans-serif;color:#888">(${url_(i.wiki_odkaz) ? `<a href="${url_(i.wiki_odkaz)}" style="color:#888">Wikipedie</a>` : 'Wikipedie'}, CC BY-SA 4.0)</span></p>`
-    : '';
+    : (i.podle_wiki
+      ? `<p style="margin:0 0 8px;font:12px Arial,sans-serif;color:#888">Podle ${url_(i.wiki_odkaz) ? `<a href="${url_(i.wiki_odkaz)}" style="color:#888">Wikipedie</a>` : 'Wikipedie'} (CC BY-SA 4.0)</p>`
+      : '');
   const itemBody = i => {
     const text = p(i.text) + wiki(i) + link(i.odkaz, i.zdroj ? 'Zdroj: ' + i.zdroj : 'Více zde');
     return url_(i.foto)
@@ -676,7 +679,7 @@ function buildText_(d, unsubUrl, ctx) {
     if (gcalUrl_(d)) L.push('Do kalendáře: ' + gcalUrl_(d));
     L.push('');
   }
-  const it = i => { L.push(i.nadpis + (i.zivotni_data ? ' (' + i.zivotni_data + ')' : ''), i.text || ''); if (i.wiki_text) L.push(i.wiki_text); if (i.odkaz) L.push(i.odkaz); L.push(''); };
+  const it = i => { L.push(i.nadpis + (i.zivotni_data ? ' (' + i.zivotni_data + ')' : ''), i.text || ''); if (i.wiki_text) L.push(i.wiki_text); else if (i.podle_wiki) L.push('Podle Wikipedie (CC BY-SA 4.0)' + (i.wiki_odkaz ? ': ' + i.wiki_odkaz : '')); if (i.odkaz) L.push(i.odkaz); L.push(''); };
   const filled = i => i.zahrnout !== false && (i.nadpis || i.text);
   const fest = (d.festival || []).filter(filled);
   if (fest.length) { L.push('Z FESTIVALU', ''); fest.forEach(it); }
@@ -724,12 +727,61 @@ function checkKey_(key) {
   if (!key || key !== prop_('ADMIN_KEY')) throw new Error('Neplatný klíč.');
 }
 
+function fetchJson_(url) {
+  const res = UrlFetchApp.fetch(url + '?t=' + Date.now(), { muteHttpExceptions: true });
+  return { code: res.getResponseCode(), text: res.getContentText() };
+}
+
+function aiUrl_() {
+  const v = PropertiesService.getScriptProperties().getProperty('ITEMS_URL_AI');
+  return v || prop_('ITEMS_URL').replace(/polozky\.json$/, 'polozky_claude.json');
+}
+
+/**
+ * Z návrhu od AI převezme JEN texty (nadpis, text, wiki_text, podle_wiki) u položek ze světa knih,
+ * a to jen u těch, které se shodují s polozky.json podle odkazu. Odkazy, zdroje, fotky, "zahrnout",
+ * kavárna, festival i vzkaz zůstávají vždy z polozky.json, takže AI nemůže podstrčit cizí odkaz.
+ */
+function mergeAi_(base, ai) {
+  const out = { used: 0, total: 0, note: '' };
+  if (!ai || typeof ai !== 'object') { out.note = 'Soubor od AI není platný.'; return out; }
+  if (ai.mesic !== base.mesic) { out.note = 'Návrh od AI je pro jiný měsíc (' + ai.mesic + ' místo ' + base.mesic + '), nepoužit.'; return out; }
+  const aiItems = Array.isArray(ai.svet_knih) ? ai.svet_knih : [];
+  const str = (v, max) => typeof v === 'string' && v.trim() && v.length <= max;
+  (base.svet_knih || []).forEach(function (b) {
+    out.total++;
+    const a = aiItems.filter(function (x) { return x && x.odkaz === b.odkaz; })[0];
+    if (!a || !str(a.nadpis, 120) || !str(a.text, 1200)) return;
+    b.nadpis = a.nadpis.trim();
+    b.text = a.text.trim();
+    if (typeof a.wiki_text === 'string' && a.wiki_text.length <= 600) b.wiki_text = a.wiki_text;
+    if (a.podle_wiki === true) b.podle_wiki = true;
+    out.used++;
+  });
+  if (!out.used) out.note = 'V souboru od AI nebyla žádná použitelná položka, použit návrh bez AI.';
+  return out;
+}
+
 function adminLoad(key) {
   checkKey_(key);
-  const res = UrlFetchApp.fetch(prop_('ITEMS_URL') + '?t=' + Date.now(), { muteHttpExceptions: true });
-  if (res.getResponseCode() !== 200) throw new Error('Nepodařilo se načíst polozky.json (HTTP ' + res.getResponseCode() + ').');
-  const data = JSON.parse(res.getContentText());
-  return { data: data, stats: stats_(data.mesic) };
+  const r = fetchJson_(prop_('ITEMS_URL'));
+  if (r.code !== 200) throw new Error('Nepodařilo se načíst polozky.json (HTTP ' + r.code + ').');
+  const data = JSON.parse(r.text);
+  let ai = { used: 0, total: 0, note: '' };
+  try {
+    const a = fetchJson_(aiUrl_());
+    if (a.code === 404) ai.note = 'Návrh od AI zatím není k dispozici, zobrazuje se návrh bez AI.';
+    else if (a.code !== 200) ai.note = 'Návrh od AI se nepodařilo načíst (HTTP ' + a.code + '), zobrazuje se návrh bez AI.';
+    else {
+      const copy = JSON.parse(JSON.stringify(data));
+      const res = mergeAi_(copy, JSON.parse(a.text));
+      if (res.used) { Object.keys(copy).forEach(function (k) { data[k] = copy[k]; }); }
+      ai = res;
+    }
+  } catch (e) {
+    ai.note = 'Návrh od AI se nepodařilo zpracovat (' + e.message + '), zobrazuje se návrh bez AI.';
+  }
+  return { data: data, stats: stats_(data.mesic), ai: ai };
 }
 
 function stats_(mesic) {

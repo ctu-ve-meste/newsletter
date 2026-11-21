@@ -33,6 +33,7 @@ jobs:
         run: |
           git config user.name "newsletter-bot"
           git config user.email "newsletter-bot@users.noreply.github.com"
+          git rm -q --ignore-unmatch polozky_claude.json   # nový návrh = starý AI návrh už neplatí
           git add polozky.json kandidati.json
           git diff --cached --quiet || git commit -m "Návrh newsletteru"
           git push

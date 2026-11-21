@@ -13,6 +13,8 @@ import json
 import os
 import re
 import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -215,7 +217,7 @@ def find_person_by_name(name):
     for lang in ("cs", "en"):                       # záloha: stránka na Wikipedii podle jména
         try:
             title = urllib.parse.quote(name.replace(" ", "_"))
-            sm = json.loads(http(f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{title}"))
+            sm = json.loads(http_retry(f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{title}"))
             if re.search(r"spisovat|básn|poet|writer|novelist|dramat", sm.get("extract", ""), re.I):
                 return {"popis": "", "zd": "", "wiki": f"https://{lang}.wikipedia.org/wiki/{title}"}
         except Exception:
@@ -334,6 +336,64 @@ def commons_photo(thumb_url):
             "foto_popisek": f"Foto: {artist or 'autor neuveden'}, {lic} (Wikimedia Commons)",
             "foto_odkaz": "https://commons.wikimedia.org/wiki/File:" + urllib.parse.quote(fname)}
 
+# Delší podklad pro AI redaktora: úvod článku a seznam děl z české Wikipedie (jen pro vybrané položky).
+WIKI_UVOD_LIMIT = 1500      # nejvýše znaků z úvodu
+WIKI_DILO_MAX = 15          # nejvýše titulů z části "Dílo"
+DILO_HEAD = re.compile(r"^(dílo|knižní dílo|knižní vydání|samostatné knihy|bibliografie|výběr z díla|vybran\w+ (dílo|bibliografie)|knihy)\b", re.I)
+DILO_SUB = re.compile(r"^(romány|povídky|novely|básně|básnické sbírky|sbírky|poezie|próza|divadelní hry|dramata|hry|eseje|"
+                      r"překlady|scénáře|literatura faktu|knihy pro děti|pro děti|česká vydání|česky)\b", re.I)
+
+
+def http_retry(url, tries=3, wait=6):
+    for i in range(tries):
+        try:
+            return http(url)
+        except urllib.error.HTTPError as e:
+            if e.code not in (429, 503) or i == tries - 1:
+                raise
+            time.sleep(wait * (i + 1))
+
+
+def parse_wiki_detail(text):
+    """Z prostého textu článku (exsectionformat=plain) vrátí (úvod, [tituly z části Dílo])."""
+    blocks = text.split("\n\n\n")
+    uvod = trim_extract(blocks[0], WIKI_UVOD_LIMIT) if blocks and blocks[0].strip() else ""
+    dilo, in_dilo = [], False
+    for b in blocks[1:]:
+        head, _, body = b.partition("\n")
+        head = head.strip()
+        if DILO_HEAD.match(head):
+            in_dilo = True
+        elif not (in_dilo and DILO_SUB.match(head)):
+            in_dilo = False
+        if not in_dilo:
+            continue
+        for line in body.splitlines():
+            line = line.strip()
+            if line and len(line) <= 160 and line not in dilo and (len(line) <= 70 or re.search(r"\d", line)):
+                dilo.append(line)
+    if len(dilo) > WIKI_DILO_MAX:      # dlouhý seznam: vzorek rovnoměrně napříč tvorbou, řádky "česky ..." vždy
+        cz = [l for l in dilo if l.lower().startswith("česky")]
+        rest = [l for l in dilo if l not in cz]
+        k = max(WIKI_DILO_MAX - len(cz), 1)
+        pick = {rest[round(i * (len(rest) - 1) / (k - 1))] for i in range(k)} if k > 1 else {rest[0]}
+        dilo = [l for l in dilo if l in cz or l in pick]
+    return uvod, dilo
+
+
+def wiki_detail(item, title):
+    time.sleep(1)       # šetříme limit Wikipedie
+    api = ("https://cs.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&exsectionformat=plain"
+           "&redirects=1&format=json&titles=" + urllib.parse.quote(urllib.parse.unquote(title).replace("_", " ")))
+    page = next(iter(json.loads(http_retry(api))["query"]["pages"].values()))
+    uvod, dilo = parse_wiki_detail(page.get("extract", ""))
+    if uvod:
+        item["wiki_uvod"] = uvod
+    if dilo:
+        item["wiki_dilo"] = dilo
+    else:
+        warn(f"Wikipedie: u {item['nadpis']} se nenašel seznam děl (AI text bude jen z úvodu).")
+
 
 def wiki_enrich(item):
     url = item.get("wiki_url") or item.get("odkaz", "")
@@ -349,6 +409,11 @@ def wiki_enrich(item):
     if lang == "cs" and sm.get("extract"):
         item["wiki_text"] = trim_extract(sm["extract"])
         item["wiki_odkaz"] = url
+    if lang == "cs":
+        try:
+            wiki_detail(item, title)
+        except Exception as e:
+            warn(f"Wikipedie (úvod a dílo) selhala pro {item['nadpis']}: {e}")
     try:
         ph = commons_photo((sm.get("thumbnail") or {}).get("source"))
         if ph:

@@ -30,6 +30,7 @@ Měsíční newsletter pro návštěvníky festivalu. Dvě části:
    | `ADMIN_KEY` | dlouhý náhodný řetězec (aspoň 32 znaků) |
    | `ITEMS_URL` | `https://raw.githubusercontent.com/ctu-ve-meste/newsletter/main/polozky.json` |
    | `WEBAPP_URL` | doplníš v kroku 6 |
+   | `ITEMS_URL_AI` | (nepovinné) `https://raw.githubusercontent.com/ctu-ve-meste/newsletter/main/polozky_claude.json`; když chybí, odvodí se z `ITEMS_URL` |
 6. **Nasadit → Nové nasazení → Webová aplikace**: spouštět jako **já**, přístup **kdokoli**. Zkopíruj adresu končící `/exec` do `WEBAPP_URL`. (Pokud Workspace „kdokoli“ zakazuje, napiš mi, vyřešíme to.)
    Při první autorizaci Google upozorní na neověřenou aplikaci. Je to váš vlastní skript, pokračuj přes „Rozšířené → Přejít na…“.
 7. Obnov tabulku. Objeví se menu **Newsletter**:
@@ -68,3 +69,11 @@ Měsíční newsletter pro návštěvníky festivalu. Dvě části:
 - `generator/data/kalendar.json`: pevné dny (prázdný `odkaz` se nezobrazí). Datumy a texty zkontroluj.
 - Denní limit odesílání e-mailů z Apps Scriptu se liší podle účtu. Aktuální hodnotu ukazuje schvalovací stránka. Při větším počtu odběratelů skript naváže při dalším kliknutí na „Odeslat všem“.
 - Wikidata jsou komunitní data. Proto je nutná lidská kontrola a proto je v newsletteru u každé položky odkaz na zdroj.
+
+### F) AI texty přes scheduled task (volitelné, bez API klíče)
+
+Místo API klíče může texty ze světa knih přepsat Claude jako naplánovaný task (jede z předplatného).
+
+- **Co dělá GitHub Action:** vybere položky, doplní fotku a výtah z Wikipedie a navíc uloží `wiki_uvod` (úvod článku) a `wiki_dilo` (až 15 titulů z části „Dílo“) jako podklad pro AI. Při novém návrhu smaže starý `polozky_claude.json`.
+- **Co dělá task:** podle `generator/ai_task.md` přepíše `nadpis` a `text` (2–4 věty, jen fakta z podkladu) a uloží je do `polozky_claude.json` v `main`.
+- **Co dělá schvalovací stránka:** když `polozky_claude.json` existuje a je pro stejný měsíc, převezme z něj **jen texty** (odkazy, zdroje, fotky a ostatní zůstávají z `polozky.json`) a nahoře ukáže „Texty napsala AI“. Jinak ukáže „Návrh bez AI“. Člověk pořád kontroluje a odesílá.
