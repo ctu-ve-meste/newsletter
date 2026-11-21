@@ -22,8 +22,8 @@ const ORG = {
   web: 'https://www.ctuvemeste.cz',
   fb: 'https://www.facebook.com/ctuvemeste/',
   ig: 'https://www.instagram.com/ctuvemeste_cz/',
-  mail: 'ctuvemeste.cz@gmail.com',
-  privacy: ''          // adresa stránky se zásadami zpracování osobních údajů (zobrazí se u přihlašovacího formuláře)
+  mail: 'newsletter@ctuvemeste.cz',
+  privacy: 'https://ctu-ve-meste.github.io/web/ochrana-osobnich-udaju/'          // adresa stránky se zásadami zpracování osobních údajů (zobrazí se u přihlašovacího formuláře)
 };
 const PENDING_DAYS = 30;        // po kolika dnech smazat adresy, které nepotvrdily
 const SIGNUP_DAILY_MAX = 60;    // ochrana přihlašovacího formuláře proti zneužití
@@ -228,7 +228,7 @@ function signupBudget_() {
 }
 
 function handleSignup_(p) {
-  const GENERIC = page_('Skoro hotovo', '<p>Pokud je adresa v pořádku, poslali jsme vám potvrzovací e-mail. Kliknutím na odkaz v něm odběr dokončíte. Zkontrolujte i složku Spam.</p>');
+  const GENERIC = page_('Skoro hotovo', '<p>Pokud tuto adresu ještě nemáme potvrzenou, poslali jsme vám potvrzovací e-mail. Kliknutím na odkaz v něm odběr dokončíte. Zkontrolujte i složku Spam.</p><p>Pokud už newsletter dostáváte, nemusíte dělat nic.</p>');
   if (p.website) return GENERIC;                                            // honeypot
   if (!p.consent) return page_('Přihlášení', signupForm_('Bez souhlasu vás přihlásit nemůžeme.'));
   if (Date.now() - Number(p.ts || 0) < 3000) return GENERIC;                // příliš rychlé odeslání = robot
@@ -274,7 +274,7 @@ function handleSignup_(p) {
 /* ---------- stránky webové aplikace ---------- */
 
 function page_(title, body) {
-  const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  const html = `<!doctype html><html><head><meta charset="utf-8"><base target="_top"><meta name="viewport" content="width=device-width,initial-scale=1">
 <style>body{margin:0;background:#000;color:#fff;font:18px/1.6 Georgia,serif;display:flex;min-height:100vh;align-items:center;justify-content:center}
 main{max-width:480px;width:100%;padding:32px;box-sizing:border-box}h1{font-family:Arial,sans-serif;font-size:28px}h1 span{color:${YELLOW}}a{color:${YELLOW}}
 label{display:block;margin:12px 0;font:15px Arial,sans-serif;color:#ccc}label.chk{display:flex;gap:10px;align-items:flex-start}
@@ -336,7 +336,7 @@ function doGet(e) {
 function doPost(e) {
   const p = (e && e.parameter) || {};
   if (p.a === 'signup') return handleSignup_(p);
-  return page_('Čtu ve městě', '<p>Opravdu čtenářský festival.</p>');
+  return DoWebPost(e);   // kontakt a přihláška města z webu
 }
 
 /* ---------- odhlášení odpovědí „odhlásit“ ---------- */
