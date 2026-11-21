@@ -16,6 +16,9 @@
   button{background:#FFD400;color:#000;border:0;padding:12px 18px;font:bold 15px Arial;margin:6px 6px 6px 0;cursor:pointer}
   button.sec{background:#222;color:#fff;border:1px solid #555}
   button:disabled{opacity:.4}
+  button.small{padding:5px 10px;font-size:12px;margin:0 0 0 auto}
+  .hint{font:13px/1.4 Arial;color:#999;margin:4px 0 8px}
+  .row{display:flex;align-items:center}
   .info{font:14px Arial;color:#ccc}
   iframe{width:100%;height:640px;border:1px solid #333;background:#000;margin-top:10px}
   .chk{display:flex;gap:8px;align-items:center;color:#FFD400;font:14px Arial}
@@ -47,29 +50,84 @@ function field(path,label,val,area){
                  : '<input type="text" data-p="'+path+'" value="'+esc(val)+'">';
   return '<label>'+label+'</label>'+tag;
 }
-function itemCard(listName,i,it){
-  return '<div class="card"><div class="chk"><input type="checkbox" data-p="'+listName+'.'+i+'.zahrnout" '+(it.zahrnout===false?'':'checked')+'> zahrnout'
-    +(it.typ?' · '+esc(it.typ):'')+'</div>'
-    +field(listName+'.'+i+'.nadpis','Nadpis',it.nadpis)
-    +field(listName+'.'+i+'.text','Text',it.text,true)
-    +field(listName+'.'+i+'.zdroj','Zdroj (název)',it.zdroj)
-    +field(listName+'.'+i+'.odkaz','Odkaz (ověř, že funguje!)',it.odkaz)+'</div>';
+function itemCard(list,i,it){
+  var wiki = list==='svet_knih';
+  var h = '<div class="card"><div class="row"><div class="chk"><input type="checkbox" data-p="'+list+'.'+i+'.zahrnout" '+(it.zahrnout===false?'':'checked')+'> zahrnout'
+    +(it.typ?' · '+esc(it.typ):'')+'</div><button class="sec small" onclick="removeItem(\''+list+'\','+i+')">Smazat</button></div>'
+    +field(list+'.'+i+'.nadpis','Nadpis',it.nadpis)
+    +field(list+'.'+i+'.text','Text',it.text,true);
+  if (wiki) {
+    h += field(list+'.'+i+'.zivotni_data','Životní data (pod nadpisem v závorce, např. 4. prosince 1875 – 29. prosince 1926)',it.zivotni_data);
+    h += field(list+'.'+i+'.wiki_text','Z Wikipedie (doplněk, prázdné = bez doplňku; zkrať nebo oprav)',it.wiki_text,true);
+  }
+  h += field(list+'.'+i+'.foto','Foto (adresa obrázku, prázdné = bez fotky'+(wiki?'':'; vlastní fotku nahraj do složky fotky/ v repu a vlož její raw adresu')+')',it.foto)
+    +field(list+'.'+i+'.foto_popisek','Popisek fotky (autor a licence, nutné vyplnit)',it.foto_popisek);
+  if (wiki) h += field(list+'.'+i+'.zdroj','Zdroj (název)',it.zdroj);
+  h += field(list+'.'+i+'.odkaz','Odkaz (ověř, že funguje!)',it.odkaz)
+    +'<input type="hidden" data-p="'+list+'.'+i+'.foto_odkaz" value="'+esc(it.foto_odkaz)+'">'
+    +'<input type="hidden" data-p="'+list+'.'+i+'.wiki_odkaz" value="'+esc(it.wiki_odkaz)+'">'
+    +'</div>';
+  return h;
 }
 function render(){
   var k = D.kafe_a_kniha || {};
-  var h = '<h3>Číslo</h3>'+field('mesic','Měsíc (RRRR-MM)',D.mesic);
+  var h = '<h3>Číslo</h3>'+field('mesic','Měsíc, o který jde (RRRR-MM)',D.mesic);
   h += '<h3>Kafe&amp;kniha</h3><div class="card">'
-    +field('kafe_a_kniha.datum','Datum (prázdné = první neděle v měsíci)',k.datum)
-    +field('kafe_a_kniha.cas','Čas',k.cas)
+    +'<div class="chk"><input type="checkbox" data-p="kafe_a_kniha.zahrnout" '+(k.zahrnout===false?'':'checked')+'> zahrnout do tohoto čísla (odškrtni, když se čtení nekoná)</div>'
+    +field('kafe_a_kniha.datum_iso','Jiné datum než první neděle (RRRR-MM-DD, prázdné = první neděle v měsíci)',k.datum_iso)
+    +field('kafe_a_kniha.cas','Čas (např. 14:00–16:00, podle toho se vytvoří odkaz do kalendáře)',k.cas)
     +field('kafe_a_kniha.misto','Kavárna',k.misto)
     +field('kafe_a_kniha.adresa','Adresa',k.adresa)
     +field('kafe_a_kniha.popis','Popis',k.popis,true)
     +field('kafe_a_kniha.odkaz','Odkaz',k.odkaz)+'</div>';
-  h += '<h3>Z festivalu</h3>'+(D.festival||[]).map(function(it,i){return itemCard('festival',i,it);}).join('');
-  h += '<h3>Ze světa knih</h3>'+(D.svet_knih||[]).map(function(it,i){return itemCard('svet_knih',i,it);}).join('');
+  h += '<h3>Z festivalu</h3><div class="hint">Krátký nadpis, 1–3 věty textu a volitelně odkaz. Přidej kolik chceš, prázdné se nepošlou.</div>'
+    +(D.festival||[]).map(function(it,i){return itemCard('festival',i,it);}).join('')
+    +'<button class="sec" onclick="addItem(\'festival\')">+ Přidat novinku z festivalu</button>'
+    +'<div class="hint">Předvyplněné náměty (text si uprav): '
+    +'<button class="sec small" style="margin:0 6px 0 0" onclick="addPreset(\'kavarna\')">Hledáme kavárnu</button>'
+    +'<button class="sec small" style="margin:0 6px 0 0" onclick="addPreset(\'dobrovolnici\')">Dobrovolníci</button>'
+    +'<button class="sec small" style="margin:0 6px 0 0" onclick="addPreset(\'anketa\')">Anketa „Kam příště?“</button>'
+    +'<button class="sec small" style="margin:0 6px 0 0" onclick="addPreset(\'jak\')">Jak to vypadalo</button></div>';
+  var r = D.rocnik || {};
+  h += '<h3>Další ročník (volitelné)</h3><div class="card">'
+    +'<div class="chk"><input type="checkbox" data-p="rocnik.zahrnout" '+(r.zahrnout===true?'checked':'')+'> zahrnout do tohoto čísla (ve výchozím stavu vypnuto)</div>'
+    +field('rocnik.nadpis','Nadpis (např. 4. ročník se blíží)',r.nadpis)
+    +field('rocnik.datum_iso','Datum začátku festivalu (RRRR-MM-DD, pro odpočet; prázdné = bez odpočtu)',r.datum_iso)
+    +field('rocnik.text','Text (co je nového; nic nezveřejňuj, dokud to tým neoznámí)',r.text,true)
+    +field('rocnik.odkaz','Odkaz',r.odkaz)+'</div>';
+  h += '<h3>Ze světa knih</h3>'
+    +(D.svet_knih||[]).map(function(it,i){return itemCard('svet_knih',i,it);}).join('')
+    +'<button class="sec" onclick="addItem(\'svet_knih\')">+ Přidat vlastní položku</button>';
   h += '<h3>Vzkaz od týmu (nepovinné)</h3>'+field('vzkaz','Vzkaz',D.vzkaz,true);
   el('form').innerHTML = h;
   el('buttons').style.display = 'block';
+}
+function addItem(list){
+  D = collect();
+  D[list] = D[list] || [];
+  D[list].push(list==='festival'
+    ? {nadpis:'',text:'',odkaz:'',foto:'',foto_popisek:'',zahrnout:true}
+    : {typ:'vlastní',nadpis:'',text:'',zdroj:'',odkaz:'',wiki_text:'',foto:'',foto_popisek:'',zahrnout:true});
+  render();
+}
+var PRESETS = {
+  kavarna: {nadpis:'Hledáme další kavárnu',text:'Máte kavárnu, obchod nebo místo, kde by se mohlo na dvě hodiny číst? Napište nám, rádi se domluvíme.',odkaz:'https://www.ctuvemeste.cz/kontakty'},
+  dobrovolnici: {nadpis:'Přidejte se k partě',text:'Vozíme židle, pečeme buchty a plánujeme další čtení. Pokud chcete pomoct, ozvěte se.',odkaz:'https://www.ctuvemeste.cz/kontakty'},
+  anketa: {nadpis:'Kam příště?',text:'Napište nám, ve které kavárně nebo na kterém místě by se mělo číst příště.',odkaz:''},
+  jak: {nadpis:'Jak to vypadalo',text:'',odkaz:''}
+};
+function addPreset(name){
+  D = collect();
+  D.festival = D.festival || [];
+  var p = PRESETS[name];
+  D.festival.push({nadpis:p.nadpis,text:p.text,odkaz:p.odkaz,foto:'',foto_popisek:'',zahrnout:true});
+  render();
+}
+function removeItem(list,i){
+  if(!confirm('Smazat tuto položku?')) return;
+  D = collect();
+  D[list].splice(i,1);
+  render();
 }
 function collect(){
   var out = JSON.parse(JSON.stringify(D));
@@ -82,7 +140,7 @@ function collect(){
   return out;
 }
 function showStats(s){
-  el('status').innerHTML = 'Odebírá: <b>'+s.odebira+'</b> · čeká na odeslání tohoto čísla: <b>'+s.zbyva+'</b> · zbývající denní limit e-mailů: <b>'+s.quota+'</b>';
+  el('status').innerHTML = 'Odebírá: <b>'+s.odebira+'</b> · čeká na odeslání tohoto čísla: <b>'+s.zbyva+'</b> · čeká na potvrzení odběru: <b>'+(s.ceka||0)+'</b> · zbývající denní limit e-mailů: <b>'+s.quota+'</b>';
 }
 function preview(){
   google.script.run.withSuccessHandler(function(html){
@@ -92,6 +150,9 @@ function preview(){
 }
 function send(mode){
   var d = collect();
+  if (mode==='all' && d.kafe_a_kniha && d.kafe_a_kniha.zahrnout!==false && !(d.kafe_a_kniha.misto||'').trim()){
+    alert('U Kafe&kniha chybí kavárna. Doplň ji, nebo odškrtni „zahrnout“.'); return;
+  }
   if (mode==='all' && !confirm('Opravdu odeslat všem odběratelům? Zkontroloval jsi náhled, odkazy a test?')) return;
   var btns = document.querySelectorAll('button'); btns.forEach(function(b){b.disabled=true;});
   el('status').textContent = 'Odesílám…';
