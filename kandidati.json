@@ -1,29 +1,5 @@
 [
   {
-    "id": "Q1988946-narození",
-    "typ": "vyroci",
-    "jmeno": "Jaroslav Marvan",
-    "popis": "český herec",
-    "udalost": "125 let od narození",
-    "datum": "11. prosince",
-    "score": 41,
-    "zivotni_data": "11. prosince 1901 – 21. května 1974",
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Jaroslav_Marvan"
-  },
-  {
-    "id": "Q20164564-narození",
-    "typ": "vyroci",
-    "jmeno": "Svetlana Žuchová",
-    "popis": "Slovenská spisovatelka a překladateka odborné literatury, vystudovala psychologii a medicínu, psychoterapeutka.",
-    "udalost": "50 let od narození",
-    "datum": "24. prosince",
-    "score": 39,
-    "zivotni_data": "nar. 24. prosince 1976",
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Svetlana_%C5%BDuchov%C3%A1"
-  },
-  {
     "id": "Q76483-úmrtí",
     "typ": "vyroci",
     "jmeno": "Rainer Maria Rilke",
@@ -34,6 +10,18 @@
     "zivotni_data": "4. prosince 1875 – 29. prosince 1926",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Rainer_Maria_Rilke"
+  },
+  {
+    "id": "Q526473-narození",
+    "typ": "vyroci",
+    "jmeno": "Miloš Macourek",
+    "popis": "český básník, dramatik, scenárista a spisovatel",
+    "udalost": "100 let od narození",
+    "datum": "2. prosince",
+    "score": 46,
+    "zivotni_data": "2. prosince 1926 – 30. září 2002",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Milo%C5%A1_Macourek"
   },
   {
     "id": "Q258715-narození",
@@ -60,30 +48,6 @@
     "odkaz": "https://cs.wikipedia.org/wiki/P%C5%99emysl_Pitter"
   },
   {
-    "id": "Q526473-narození",
-    "typ": "vyroci",
-    "jmeno": "Miloš Macourek",
-    "popis": "český básník, dramatik, scenárista a spisovatel",
-    "udalost": "100 let od narození",
-    "datum": "2. prosince",
-    "score": 46,
-    "zivotni_data": "2. prosince 1926 – 30. září 2002",
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Milo%C5%A1_Macourek"
-  },
-  {
-    "id": "Q957342-narození",
-    "typ": "vyroci",
-    "jmeno": "Jan Křesadlo",
-    "popis": "český básník, hudební skladatel, malíř, matematik, překladatel, romanopisec a spisovatel",
-    "udalost": "100 let od narození",
-    "datum": "9. prosince",
-    "score": 45,
-    "zivotni_data": "9. prosince 1926 – 13. srpna 1995",
-    "zdroj": "Wikidata / Wikipedie",
-    "odkaz": "https://cs.wikipedia.org/wiki/Jan_K%C5%99esadlo"
-  },
-  {
     "id": "Q1356330-narození",
     "typ": "vyroci",
     "jmeno": "Michal Hvorecký",
@@ -106,6 +70,54 @@
     "zivotni_data": "nar. 25. prosince 1976",
     "zdroj": "Wikidata / Wikipedie",
     "odkaz": "https://cs.wikipedia.org/wiki/Pavel_B%C4%9Blobr%C3%A1dek"
+  },
+  {
+    "id": "Q20164564-narození",
+    "typ": "vyroci",
+    "jmeno": "Svetlana Žuchová",
+    "popis": "Slovenská spisovatelka a překladateka odborné literatury, vystudovala psychologii a medicínu, psychoterapeutka.",
+    "udalost": "50 let od narození",
+    "datum": "24. prosince",
+    "score": 39,
+    "zivotni_data": "nar. 24. prosince 1976",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Svetlana_%C5%BDuchov%C3%A1"
+  },
+  {
+    "id": "Q1988946-narození",
+    "typ": "vyroci",
+    "jmeno": "Jaroslav Marvan",
+    "popis": "český herec",
+    "udalost": "125 let od narození",
+    "datum": "11. prosince",
+    "score": 41,
+    "zivotni_data": "11. prosince 1901 – 21. května 1974",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Jaroslav_Marvan"
+  },
+  {
+    "id": "Q957342-narození",
+    "typ": "vyroci",
+    "jmeno": "Jan Křesadlo",
+    "popis": "český básník, hudební skladatel, malíř, matematik, překladatel, romanopisec a spisovatel",
+    "udalost": "100 let od narození",
+    "datum": "9. prosince",
+    "score": 45,
+    "zivotni_data": "9. prosince 1926 – 13. srpna 1995",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Jan_K%C5%99esadlo"
+  },
+  {
+    "id": "Q3394963-umrti-nedavno",
+    "typ": "umrti",
+    "jmeno": "Peter Jaroš",
+    "popis": "slovenský dramatik a spisovatel",
+    "udalost": "nedávno zemřel/a",
+    "datum": "8. listopadu",
+    "score": 39,
+    "zivotni_data": "22. ledna 1940 – 8. listopadu 2026",
+    "zdroj": "Wikidata / Wikipedie",
+    "odkaz": "https://cs.wikipedia.org/wiki/Peter_Jaro%C5%A1"
   },
   {
     "id": "nobel-2026-0",
